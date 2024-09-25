@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using OrdersAPI.Infrastructure;
+using OrdersAPI.Core.Interfaces.RepositoryInterfaces;
+using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces;
+using OrdersAPI.Core.Services.OrderServices;
+using OrdersAPI.Infrastructure.DatabaseContext;
+using OrdersAPI.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
+builder.Services.AddScoped<IOrderGetterService, OrderGetterService>();
 
 var app = builder.Build();
 

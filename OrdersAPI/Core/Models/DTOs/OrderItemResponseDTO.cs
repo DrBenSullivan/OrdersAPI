@@ -34,5 +34,15 @@
 			UnitPrice = orderItem.UnitPrice,
 			TotalPrice = orderItem.TotalPrice
 		};
+
+		public static List<OrderItemResponseDTO> ToOrderItemResponseDTOList(this List<OrderItem> orderItems)
+		{
+			var responseList = new List<OrderItemResponseDTO>();
+			foreach (var item in orderItems)
+			{
+				responseList.Add(item.ToOrderItemResponseDTO());
+			}
+			return responseList;
+		}
 	}
 }

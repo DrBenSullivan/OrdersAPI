@@ -31,5 +31,15 @@
             OrderDate = order.OrderDate,
             TotalPrice = order.TotalPrice
         };
+
+        public static List<OrderResponseDTO> ToOrderResponseDTOList(this List<Order> orders)
+        {
+            var responseList = new List<OrderResponseDTO>();
+            foreach (var order in orders)
+            {
+                responseList.Add(order.ToOrderResponseDTO());
+            }
+            return responseList;
+        }
     }
 }
