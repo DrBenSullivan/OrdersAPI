@@ -29,7 +29,7 @@ namespace OrdersAPI.Core.Models
 		[Precision(18,2)]
 		[Range(0, (double) decimal.MaxValue, ErrorMessage = "The Total Cost of the order must not be negative.")]
 		[Required(ErrorMessage = "The Total Cost of the order must be provided.")]
-		public decimal? TotalCost { get; set; }
+		public decimal? TotalPrice { get; set; }
 
 
 
