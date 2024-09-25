@@ -12,8 +12,7 @@ namespace OrdersAPI.Core.Models
 
 		[ForeignKey("Order")]
 		[Required(ErrorMessage = "The Order ID must be provided.")]
-		public Guid? OrderId { get; set; }
-		public virtual Order? Order { get; set; }
+		public Guid OrderId { get; set; }
 
 
 		[MaxLength(50)]
@@ -23,18 +22,18 @@ namespace OrdersAPI.Core.Models
 		
 
 		[Range(0, int.MaxValue, ErrorMessage = "The Quantity must not be a negative number.")]
-		public int? Quantity { get; set; }
+		public int Quantity { get; set; }
 
 
 
 		[Precision(18,2)]
 		[Range(0, (double) decimal.MaxValue, ErrorMessage = "The Unit Price must not be negative.")]
-		public decimal? UnitPrice { get; set; }
+		public decimal UnitPrice { get; set; }
 
 
 
 		[Precision(18,2)]
 		[Range(0, (double) decimal.MaxValue, ErrorMessage = "The Total Price must not be negative.")]
-		public decimal? TotalPrice { get; set; }
+		public decimal TotalPrice { get; set; }
 	}
 }
