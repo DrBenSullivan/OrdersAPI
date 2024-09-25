@@ -15,8 +15,8 @@ namespace OrdersAPI.Core.Models
 
 
 
-		[Required(ErrorMessage = "The Customer Name must be provided.")]
 		[MaxLength(50, ErrorMessage = "The Customer Name must not exceed 50 characters.")]
+		[Required(ErrorMessage = "The Customer Name must be provided.")]
 		public string? CustomerName { get; set; }
 
 
@@ -26,9 +26,13 @@ namespace OrdersAPI.Core.Models
 
 
 
-		[Required(ErrorMessage = "The Total Cost of the order must be provided.")]
 		[Precision(18,2)]
-		[Range(0, Double.MaxValue, ErrorMessage = "The Total Cost of the order must not be negative.")]
+		[Range(0, (double) decimal.MaxValue, ErrorMessage = "The Total Cost of the order must not be negative.")]
+		[Required(ErrorMessage = "The Total Cost of the order must be provided.")]
 		public decimal? TotalCost { get; set; }
+
+
+
+		public virtual ICollection<OrderItem>? OrderItems { get; set; }
 	}
 }
