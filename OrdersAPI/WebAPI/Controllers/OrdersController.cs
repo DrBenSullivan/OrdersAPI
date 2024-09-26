@@ -33,5 +33,7 @@ namespace OrdersAPI.Web.Controllers
 				? Problem($"No order with ID {id} was found.", statusCode: 404)
 				: order;
 		}
+
+		[]
 	}
 }
