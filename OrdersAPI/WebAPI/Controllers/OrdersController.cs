@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces;
 using OrdersAPI.Core.Models.DTOs;
+using OrdersAPI.Core.Services.OrderServices;
 
 namespace OrdersAPI.WebAPI.Controllers
 {
@@ -31,7 +32,7 @@ namespace OrdersAPI.WebAPI.Controllers
 		[HttpGet]
 		public async Task<ActionResult<List<OrderResponseDTO>>> GetOrders()
 		{
-			LogAction("Getting orders from OrderGetterService...");
+			_logger.LogInformation("Getting orders from OrderGetterService...");
 			return await _orderGetterService.GetAllOrdersAsync();
 		}
 
@@ -44,12 +45,12 @@ namespace OrdersAPI.WebAPI.Controllers
 		[HttpGet("{orderId}")]
 		public async Task<ActionResult<OrderResponseDTO>> GetOrderById([Bind] Guid orderId)
 		{
-			LogAction($"Getting order with ID {orderId} from OrderGetterService...");
+			_logger.LogInformation("Getting order with ID {OrderId} from OrderGetterService...", orderId);
 			OrderResponseDTO? order = await _orderGetterService.GetOrderByIdAsync(orderId);
 
 			if (order == null)
 			{
-				_logger.LogInformation($"Order with Id {orderId} not found.");
+				_logger.LogInformation("Order with Id {OrderId} not found.", orderId);
 				return NotFound($"No Order with ID {orderId} could be retrieved from the database.");
 			}
 
@@ -65,13 +66,13 @@ namespace OrdersAPI.WebAPI.Controllers
 		[HttpPost]
 		public async Task<ActionResult> AddOrder([Bind] AddOrderDTO addOrderRequest)
 		{
-			LogAction($"Sending order with OrderNumber {addOrderRequest.OrderNumber} to OrderAdderService...");
+			_logger.LogInformation("Sending order with OrderNumber {OrderNumber} to OrderAdderService...", addOrderRequest.OrderNumber);
 
 			OrderResponseDTO? addedOrder = await _orderAdderService.AddOrderAsync(addOrderRequest);
 
             if (addedOrder == null)
             {
-                _logger.LogWarning($"Order with orderNumber {addOrderRequest.OrderNumber} could not be added to the database...");
+                _logger.LogWarning("Order with orderNumber {OrderNumber} could not be added to the database...", addOrderRequest.OrderNumber);
 				return Problem("An unknown error occurred, please try again later.", statusCode: 500);
             }
 
@@ -92,21 +93,16 @@ namespace OrdersAPI.WebAPI.Controllers
 				return BadRequest($"The ID in query string ({orderId}) does not match that of the update request ({updateOrderRequest.OrderId}). The IDs must match exactly.");
 			}
 
-			LogAction($"Sending updated details for order with ID ${orderId} to OrderUpdaterService...");
+			_logger.LogInformation("Valid details received for order with ID {OrderId}.\nCalling {Method}", orderId.ToString(), nameof(_orderUpdaterService.UpdateOrderAsync));
 			OrderResponseDTO? updatedOrder = await _orderUpdaterService.UpdateOrderAsync(updateOrderRequest);
 
 			if (updatedOrder == null)
 			{
-				_logger.LogWarning($"Order with ID {orderId} could not be updated...");
+				_logger.LogWarning("Order with ID {OrderId} could not be updated...", orderId);
 				return Problem("An unknown error occurred, please try again later.");
 			}
 
 			return Ok(updatedOrder);
-		}
-
-		private void LogAction(string message, [System.Runtime.CompilerServices.CallerMemberName] string actionName = "")
-		{
-			_logger.LogInformation($"{nameof(OrdersController)}.{actionName} reached.\n{message}\n\n");
 		}
 	}
 }

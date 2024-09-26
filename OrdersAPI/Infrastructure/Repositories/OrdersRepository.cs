@@ -8,12 +8,14 @@ namespace OrdersAPI.Infrastructure.Repositories
 	public class OrdersRepository : IOrdersRepository
 	{
 		# region private readonly fields
+		private readonly ILogger<OrdersRepository> _logger;
 		private readonly ApplicationDbContext _db;
         # endregion
 
         # region constructors
-        public OrdersRepository(ApplicationDbContext db)
+        public OrdersRepository(ILogger<OrdersRepository> logger, ApplicationDbContext db)
         {
+			_logger = logger;
             _db = db;
         }
 		#endregion
@@ -24,6 +26,8 @@ namespace OrdersAPI.Infrastructure.Repositories
 		/// <returns>A list of Orders or, an empty list if none found.</returns>
 		public async Task<List<Order>> GetAllOrdersAsync()
 		{
+			_logger.LogInformation("{Method} reached...", nameof(OrdersRepository.GetAllOrdersAsync));
+
 			List<Order>? ordersList = await _db.Orders
 				.Include(o => o.Items)
 				.ToListAsync();
@@ -38,6 +42,8 @@ namespace OrdersAPI.Infrastructure.Repositories
 		/// <returns>The order searched for.</returns>
 		public async Task<Order?> GetOrderByIdAsync(Guid orderId)
 		{
+			_logger.LogInformation("{Method} reached with ID {OrderId}", nameof(OrdersRepository.GetOrderByIdAsync), orderId);
+
 			Order? order = await _db.Orders
 				.Include(o => o.Items)
 				.FirstOrDefaultAsync(o => o.OrderId == orderId);	
@@ -52,6 +58,8 @@ namespace OrdersAPI.Infrastructure.Repositories
 		/// <returns>The added order.</returns>
 		public async Task<Order> AddOrderAsync(Order order)
 		{
+			_logger.LogInformation("{Method} reached for OrderId {OrderId}...", nameof(OrdersRepository.AddOrderAsync), order.OrderId);
+
 			await _db.Orders.AddAsync(order);
 			await _db.SaveChangesAsync();
 			return order;
@@ -64,6 +72,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		/// <returns>The updated Order.</returns>
 		public async Task<Order?> UpdateOrderAsync(Order order)
 		{
+			_logger.LogInformation("{Method} reached for OrderId {OrderId}...", nameof(OrdersRepository.UpdateOrderAsync), order.OrderId);
 			Order? existingOrder = await _db.Orders
 				.Include(o => o.Items)
 				.FirstOrDefaultAsync(o => o.OrderId == order.OrderId);

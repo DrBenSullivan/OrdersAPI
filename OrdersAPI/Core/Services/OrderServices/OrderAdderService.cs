@@ -29,12 +29,12 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>OrderResponseDTO of the added order.</returns>
 		public async Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO addOrderDTO)
 		{
-			_logger.LogInformation($"{nameof(OrderAdderService)}.{nameof(AddOrderAsync)} reached... Processing AddOrderDTO with OrderNumber {addOrderDTO.OrderNumber}");
+			_logger.LogInformation("{Method} reached... Processing AddOrderDTO with OrderNumber {OrderNumber}", nameof(OrderAdderService.AddOrderAsync), addOrderDTO.OrderNumber);
 
 			Order newOrder = addOrderDTO.ToOrder();
 			newOrder.OrderId = Guid.NewGuid();
 
-			_logger.LogInformation($"GUID for new order: {newOrder.OrderId}... Calling {nameof(_ordersRepository.AddOrderAsync)}");
+			_logger.LogInformation("GUID for new order: {OrderId}... Calling {NextMethod}", newOrder.OrderId, nameof(_ordersRepository.AddOrderAsync));
 			var addedOrder = await _ordersRepository.AddOrderAsync(newOrder);
 			var addedOrderResponse = addedOrder.ToOrderResponseDTO();
 

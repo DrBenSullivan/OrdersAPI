@@ -8,6 +8,6 @@ namespace OrdersAPI.Core.Interfaces.RepositoryInterfaces
 		public Task<List<Order>> GetAllOrdersAsync();
 		public Task<Order?> GetOrderByIdAsync(Guid orderId);
 		public Task<Order> AddOrderAsync(Order order);
-		public Task<Order> UpdateOrderAsync(Order order);
+		public Task<Order?> UpdateOrderAsync(Order order);
 	}
 }
