@@ -24,5 +24,14 @@ namespace OrdersAPI.Web.Controllers
 			return await _orderGetterService.GetAllOrdersAsync();
 		}
 
+		[HttpGet("{id}")]
+		public async Task<ActionResult<OrderResponseDTO>> GetOrderById(Guid id)
+		{
+			OrderResponseDTO? order = await _orderGetterService.GetOrderByIdAsync(id);
+
+			return order == null
+				? Problem($"No order with ID {id} was found.", statusCode: 404)
+				: order;
+		}
 	}
 }

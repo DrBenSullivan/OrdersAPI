@@ -24,5 +24,10 @@ namespace OrdersAPI.Infrastructure.Repositories
 				? await _db.Orders.ToListAsync()
 				: [];
 		}
+
+		public async Task<Order?> GetOrderByIdAsync(Guid id)
+		{
+			return await _db.Orders.FirstOrDefaultAsync(o => o.OrderId == id);				
+		}
 	}
 }

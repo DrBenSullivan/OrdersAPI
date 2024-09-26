@@ -3,4 +3,9 @@
 GET {{OrdersAPI_HostAddress}}/api/Orders/
 Accept: application/json
 
+### Get By ID
+GET {{OrdersAPI_HostAddress}}/api/Orders/f3227064-9677-4e22-8dce-8848762fbb11
+
+Accept: application/json
+
 ###
