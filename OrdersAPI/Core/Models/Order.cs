@@ -26,5 +26,7 @@ namespace OrdersAPI.Core.Models
 		[Range(0, (double) decimal.MaxValue, ErrorMessage = "The Total Cost of the order must not be negative.")]
 		[Required(ErrorMessage = "The Total Cost of the order must be provided.")]
 		public decimal TotalPrice { get; set; }
+
+		public List<OrderItem> Items { get; set; } = new List<OrderItem>();
 	}
 }

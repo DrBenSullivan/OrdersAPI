@@ -12,7 +12,7 @@
 
 	public static class OrderItemResponseDTOExtensions
 	{
-		public static OrderItem ToOrderItem(this OrderItemResponseDTO dto) => new OrderItem
+		public static OrderItem ToOrderItem(this OrderItemResponseDTO dto) => new ()
 		{
 			OrderItemId = dto.OrderItemId,
 			OrderId = dto.OrderId,
@@ -25,7 +25,7 @@
 
 	public static class OrderItemExtensions
 	{
-		public static OrderItemResponseDTO ToOrderItemResponseDTO(this OrderItem orderItem) => new OrderItemResponseDTO 
+		public static OrderItemResponseDTO ToOrderItemResponse(this OrderItem orderItem) => new ()
 		{
 			OrderItemId = orderItem.OrderItemId,
 			OrderId = orderItem.OrderId,
@@ -35,12 +35,12 @@
 			TotalPrice = orderItem.TotalPrice
 		};
 
-		public static List<OrderItemResponseDTO> ToOrderItemResponseDTOList(this List<OrderItem> orderItems)
+		public static List<OrderItemResponseDTO> ToOrderItemResponseList(this List<OrderItem> orderItems)
 		{
 			var responseList = new List<OrderItemResponseDTO>();
 			foreach (var item in orderItems)
 			{
-				responseList.Add(item.ToOrderItemResponseDTO());
+				responseList.Add(item.ToOrderItemResponse());
 			}
 			return responseList;
 		}

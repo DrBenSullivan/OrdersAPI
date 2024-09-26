@@ -44,10 +44,9 @@ namespace OrdersAPI.Core.Services.OrderServices
 		{
 			try
 			{
-				var order = await _ordersRepository.GetOrderByIdAsync(id);
-				return order != null
-					? order.ToOrderResponseDTO() 
-					: null;
+				Order? order = await _ordersRepository.GetOrderByIdAsync(id);
+
+				return order?.ToOrderResponse();
 			}
 			catch (Exception ex)
 			{

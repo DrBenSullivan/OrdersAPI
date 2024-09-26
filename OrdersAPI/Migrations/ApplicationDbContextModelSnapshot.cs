@@ -51,9 +51,9 @@ namespace OrdersAPI.Migrations
                     b.HasData(
                         new
                         {
-                            OrderId = new Guid("f3227064-9677-4e22-8dce-8848762fbb11"),
+                            OrderId = new Guid("d8ee85ea-4c23-457b-b60c-6249720285fd"),
                             CustomerName = "John Smith",
-                            OrderDate = new DateTime(2024, 9, 25, 17, 35, 15, 456, DateTimeKind.Local).AddTicks(1089),
+                            OrderDate = new DateTime(2024, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderNumber = "SEED_ORDER_2024_1",
                             TotalPrice = 40.00m
                         });
@@ -86,18 +86,36 @@ namespace OrdersAPI.Migrations
 
                     b.HasKey("OrderItemId");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("OrderItems");
 
                     b.HasData(
                         new
                         {
-                            OrderItemId = new Guid("59b1fbcc-2b26-44fe-8cdf-a6789d6a2a28"),
-                            OrderId = new Guid("f3227064-9677-4e22-8dce-8848762fbb11"),
+                            OrderItemId = new Guid("6fdda9d2-5071-4541-8b69-60b495aa2d60"),
+                            OrderId = new Guid("d8ee85ea-4c23-457b-b60c-6249720285fd"),
                             ProductName = "Hammer",
                             Quantity = 4,
                             TotalPrice = 40.00m,
                             UnitPrice = 10.00m
                         });
+                });
+
+            modelBuilder.Entity("OrdersAPI.Core.Models.OrderItem", b =>
+                {
+                    b.HasOne("OrdersAPI.Core.Models.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("OrdersAPI.Core.Models.Order", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

@@ -21,13 +21,20 @@ namespace OrdersAPI.Infrastructure.Repositories
 		public async Task<List<Order>> GetAllOrdersAsync()
 		{
 			return _db.Orders.Any()
-				? await _db.Orders.ToListAsync()
+				? await _db.Orders.Include(o => o.Items).ToListAsync()
 				: [];
 		}
 
 		public async Task<Order?> GetOrderByIdAsync(Guid id)
 		{
-			return await _db.Orders.FirstOrDefaultAsync(o => o.OrderId == id);				
+			return await _db.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.OrderId == id);				
+		}
+
+		public async Task<Order> AddOrderAsync(Order order)
+		{
+			await _db.Orders.AddAsync(order);
+			await _db.SaveChangesAsync();
+			return order;
 		}
 	}
 }

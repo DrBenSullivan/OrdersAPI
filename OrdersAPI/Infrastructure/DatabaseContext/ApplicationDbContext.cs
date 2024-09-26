@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrdersAPI.Core.Models;
+using OrdersAPI.Infrastructure.Repositories;
 
 namespace OrdersAPI.Infrastructure.DatabaseContext
 {
@@ -22,27 +23,30 @@ namespace OrdersAPI.Infrastructure.DatabaseContext
 
             if (!modelBuilder.Entity<Order>().Metadata.GetSeedData().Any())
             {
-                var orderId = Guid.NewGuid();
-                var seedOrderNumber = "SEED_ORDER_2024_1";
+                Guid seedOrderId = Guid.NewGuid();
+                var seedOrderItemId = Guid.NewGuid();
 
-                modelBuilder.Entity<Order>().HasData(new Order()
+                var seedOrder = new Order()
                 {
-                    OrderId = orderId,
-                    OrderNumber = seedOrderNumber,
+                    OrderId = seedOrderId,
+                    OrderNumber = "SEED_ORDER_2024_1",
                     CustomerName = "John Smith",
-                    OrderDate = DateTime.Now,
+                    OrderDate = new DateTime(2024, 9, 26),
                     TotalPrice = 40.00m
-                });
+                };
 
-                modelBuilder.Entity<OrderItem>().HasData(new OrderItem()
+                var seedOrderItem = new OrderItem()
                 {
-                    OrderItemId = Guid.NewGuid(),
-                    OrderId = orderId,
+                    OrderItemId = seedOrderItemId,
+                    OrderId = seedOrderId,
                     ProductName = "Hammer",
                     Quantity = 4,
                     UnitPrice = 10.00m,
                     TotalPrice = 40.00m
-                });
+                };
+
+                modelBuilder.Entity<Order>().HasData(seedOrder);
+                modelBuilder.Entity<OrderItem>().HasData(seedOrderItem);
             }
         }
     }
