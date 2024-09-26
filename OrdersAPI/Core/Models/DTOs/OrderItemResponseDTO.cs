@@ -8,24 +8,22 @@
 		public int Quantity { get; set; }
 		public decimal UnitPrice { get; set; }
 		public decimal TotalPrice { get; set; }
-	}
+	
 
-	public static class OrderItemResponseDTOExtensions
-	{
-		public static OrderItem ToOrderItem(this OrderItemResponseDTO dto) => new ()
+		public OrderItem ToOrderItem() => new ()
 		{
-			OrderItemId = dto.OrderItemId,
-			OrderId = dto.OrderId,
-			ProductName = dto.ProductName,
-			Quantity = dto.Quantity,
-			UnitPrice = dto.UnitPrice,
-			TotalPrice = dto.TotalPrice
+			OrderItemId = OrderItemId,
+			OrderId = OrderId,
+			ProductName = ProductName,
+			Quantity = Quantity,
+			UnitPrice = UnitPrice,
+			TotalPrice = TotalPrice
 		};
 	}
 
 	public static class OrderItemExtensions
 	{
-		public static OrderItemResponseDTO ToOrderItemResponse(this OrderItem orderItem) => new ()
+		public static OrderItemResponseDTO ToOrderItemResponseDTO(this OrderItem orderItem) => new ()
 		{
 			OrderItemId = orderItem.OrderItemId,
 			OrderId = orderItem.OrderId,
@@ -40,7 +38,7 @@
 			var responseList = new List<OrderItemResponseDTO>();
 			foreach (var item in orderItems)
 			{
-				responseList.Add(item.ToOrderItemResponse());
+				responseList.Add(item.ToOrderItemResponseDTO());
 			}
 			return responseList;
 		}

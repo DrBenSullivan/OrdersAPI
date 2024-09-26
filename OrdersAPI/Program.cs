@@ -7,6 +7,8 @@ using OrdersAPI.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddConsole().AddDebug(); 
+
 builder.Services.AddControllers()
 	.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
@@ -23,6 +25,7 @@ builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrderGetterService, OrderGetterService>();
 builder.Services.AddScoped<IOrderAdderService, OrderAdderService>();
+builder.Services.AddScoped<IOrderUpdaterService, OrderUpdaterService>();
 
 var app = builder.Build();
 

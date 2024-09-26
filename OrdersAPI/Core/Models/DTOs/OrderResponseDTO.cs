@@ -8,23 +8,21 @@
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }
         public List<OrderItemResponseDTO> OrderItems { get; set; } = [];
-    }
+    
 
-    public static class OrderResponseDTOExtensions
-    {
-        public static Order ToOrder(this OrderResponseDTO dto) => new ()
+        public Order ToOrder() => new ()
         {
-            OrderId = dto.OrderId,
-            OrderNumber = dto.OrderNumber,
-            CustomerName = dto.CustomerName,
-            OrderDate = dto.OrderDate,
-            TotalPrice = dto.TotalPrice
+            OrderId = OrderId,
+            OrderNumber = OrderNumber,
+            CustomerName = CustomerName,
+            OrderDate = OrderDate,
+            TotalPrice = TotalPrice
         };
-    }
+    } 
 
     public static class OrderExtensions
     {
-        public static OrderResponseDTO ToOrderResponse(this Order order) => new ()
+        public static OrderResponseDTO ToOrderResponseDTO(this Order order) => new ()
         {
             OrderId = order.OrderId,
             OrderNumber = order.OrderNumber,
@@ -39,7 +37,7 @@
             var responseList = new List<OrderResponseDTO>();
             foreach (var order in orders)
             {
-                responseList.Add(order.ToOrderResponse());
+                responseList.Add(order.ToOrderResponseDTO());
             }
             return responseList;
         }

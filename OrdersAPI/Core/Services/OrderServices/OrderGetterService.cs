@@ -24,34 +24,19 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>A list of OrderResponseDTOs</returns>
 		public async Task<List<OrderResponseDTO>> GetAllOrdersAsync()
 		{
-			try
-			{
-				var orders = await _ordersRepository.GetAllOrdersAsync();
-				return orders.ToOrderResponseDTOList();
-			}
-			catch (Exception ex)
-			{
-				throw;
-			}
+			var orders = await _ordersRepository.GetAllOrdersAsync();
+			return orders.ToOrderResponseDTOList();
 		}
 
 		/// <summary>
 		/// Finds an order by the given GUID.
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="orderId"></param>
 		/// <returns>A nullable OrderResponseDTO.</returns>
-		public async Task<OrderResponseDTO?> GetOrderByIdAsync(Guid id)
+		public async Task<OrderResponseDTO?> GetOrderByIdAsync(Guid orderId)
 		{
-			try
-			{
-				Order? order = await _ordersRepository.GetOrderByIdAsync(id);
-
-				return order?.ToOrderResponse();
-			}
-			catch (Exception ex)
-			{
-				throw;
-			}
+			Order? order = await _ordersRepository.GetOrderByIdAsync(orderId);
+			return order?.ToOrderResponseDTO();
 		}
 	}
 }

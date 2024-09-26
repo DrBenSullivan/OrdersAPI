@@ -5,6 +5,6 @@ namespace OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces
 	public interface IOrderGetterService
 	{
 		public Task<List<OrderResponseDTO>> GetAllOrdersAsync();
-		public Task<OrderResponseDTO?> GetOrderByIdAsync(Guid id);
+		public Task<OrderResponseDTO?> GetOrderByIdAsync(Guid orderId);
 	}
 }

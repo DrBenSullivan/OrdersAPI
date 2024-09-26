@@ -20,20 +20,25 @@ namespace OrdersAPI.Core.Services.OrderServices
         }
 		#endregion
 
-		public async Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO orderAddRequest)
+		/// <summary>
+		/// Adds the given order.
+		/// </summary>
+		/// <param name="addOrderDTO">AddOrderDTO to be added.</param>
+		/// <returns>OrderResponseDTO of the added order.</returns>
+		public async Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO addOrderDTO)
 		{
-			Order newOrder = orderAddRequest.ToOrder();
+			Order newOrder = addOrderDTO.ToOrder();
 			newOrder.OrderId = Guid.NewGuid();
 			var addedOrder = await _ordersRepository.AddOrderAsync(newOrder);
-			var addedOrderResponse = addedOrder.ToOrderResponse();
+			var addedOrderResponse = addedOrder.ToOrderResponseDTO();
 
-			List<OrderItem> items = orderAddRequest.OrderItems.ToOrderItemsList();
+			List<OrderItem> items = addOrderDTO.OrderItems.ToOrderItemsList();
 			foreach (var item in items)
 			{
 				item.OrderItemId = Guid.NewGuid();
 				item.OrderId = newOrder.OrderId;
 				var addedOrderItem = await _orderItemsRepository.AddOrderItemAsync(item);
-				addedOrderResponse.OrderItems.Add(addedOrderItem.ToOrderItemResponse());
+				addedOrderResponse.OrderItems.Add(addedOrderItem.ToOrderItemResponseDTO());
 			}
 			
 			return addedOrderResponse;

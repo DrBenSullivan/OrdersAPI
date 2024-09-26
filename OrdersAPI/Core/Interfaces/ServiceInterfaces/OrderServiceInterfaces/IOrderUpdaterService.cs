@@ -2,9 +2,8 @@
 
 namespace OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces
 {
-	public interface IOrderAdderService
+	public interface IOrderUpdaterService
 	{
-		public Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO addOrderDTO);
-
+		public Task<OrderResponseDTO> UpdateOrderAsync(UpdateOrderDTO updateOrderDTO);
 	}
 }
