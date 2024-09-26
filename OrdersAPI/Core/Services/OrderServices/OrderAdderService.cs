@@ -8,13 +8,15 @@ namespace OrdersAPI.Core.Services.OrderServices
 	public class OrderAdderService : IOrderAdderService
 	{
 		#region private readonly fields
+		private readonly ILogger<OrderAdderService> _logger;
 		private readonly IOrdersRepository _ordersRepository;
 		private readonly IOrderItemsRepository _orderItemsRepository;
         #endregion
 
         #region constructors
-        public OrderAdderService(IOrdersRepository ordersRepository, IOrderItemsRepository orderItemsRepository)
+        public OrderAdderService(ILogger<OrderAdderService> logger, IOrdersRepository ordersRepository, IOrderItemsRepository orderItemsRepository)
         {
+			_logger = logger;
             _ordersRepository = ordersRepository;
 			_orderItemsRepository = orderItemsRepository;
         }
@@ -27,8 +29,12 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>OrderResponseDTO of the added order.</returns>
 		public async Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO addOrderDTO)
 		{
+			_logger.LogInformation($"{nameof(OrderAdderService)}.{nameof(AddOrderAsync)} reached... Processing AddOrderDTO with OrderNumber {addOrderDTO.OrderNumber}");
+
 			Order newOrder = addOrderDTO.ToOrder();
 			newOrder.OrderId = Guid.NewGuid();
+
+			_logger.LogInformation($"GUID for new order: {newOrder.OrderId}... Calling {nameof(_ordersRepository.AddOrderAsync)}");
 			var addedOrder = await _ordersRepository.AddOrderAsync(newOrder);
 			var addedOrderResponse = addedOrder.ToOrderResponseDTO();
 

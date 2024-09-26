@@ -8,12 +8,14 @@ namespace OrdersAPI.Core.Services.OrderServices
 	public class OrderGetterService : IOrderGetterService
 	{
 		#region private readonly fields
+		private readonly ILogger<OrderGetterService> _logger;
 		private readonly IOrdersRepository _ordersRepository;
         #endregion
 
 		# region constructors
-        public OrderGetterService(IOrdersRepository ordersRepository)
+        public OrderGetterService(ILogger<OrderGetterService> logger, IOrdersRepository ordersRepository)
         {
+			_logger = logger;
             _ordersRepository = ordersRepository;
         }
 		# endregion
@@ -24,6 +26,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>A list of OrderResponseDTOs</returns>
 		public async Task<List<OrderResponseDTO>> GetAllOrdersAsync()
 		{
+			_logger.LogInformation($"{nameof(OrderGetterService)}.{nameof(GetAllOrdersAsync)} reached... \nCalling {nameof(_ordersRepository.GetAllOrdersAsync)}");
 			var orders = await _ordersRepository.GetAllOrdersAsync();
 			return orders.ToOrderResponseDTOList();
 		}
@@ -35,6 +38,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>A nullable OrderResponseDTO.</returns>
 		public async Task<OrderResponseDTO?> GetOrderByIdAsync(Guid orderId)
 		{
+			_logger.LogInformation($"{nameof(OrderGetterService)}.{nameof(GetOrderByIdAsync)} reached with orderId {orderId}... \nCalling {nameof(_ordersRepository.GetOrderByIdAsync)}");
 			Order? order = await _ordersRepository.GetOrderByIdAsync(orderId);
 			return order?.ToOrderResponseDTO();
 		}
