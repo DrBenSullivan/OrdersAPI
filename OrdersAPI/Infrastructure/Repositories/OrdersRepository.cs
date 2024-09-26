@@ -94,5 +94,27 @@ namespace OrdersAPI.Infrastructure.Repositories
 			
 			return existingOrder;
 		}
+
+		/// <summary>
+		/// Deletes the order with the given orderId.
+		/// </summary>
+		/// <param name="orderId">The orderId of the order to be deleted.</param>
+		/// <returns>true if an order with the given orderId exists, otherwise false.</returns>
+		public async Task<bool> DeleteOrderByIdAsync(Guid orderId)
+		{
+			_logger.LogInformation("{Method} reached for OrderId {OrderId}...", nameof(OrdersRepository.DeleteOrderByIdAsync), orderId);
+			
+			var order = await _db.Orders.FindAsync(orderId);
+			if (order == null) 
+			{
+				_logger.LogWarning("Order with orderId {OrderId} was not found.", orderId);
+				return false;
+			}
+
+			_logger.LogInformation("Order found. Deleting...");
+			_db.Orders.Remove(order);
+			await _db.SaveChangesAsync();
+			return true; 
+		}
 	}
 }

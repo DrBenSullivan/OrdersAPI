@@ -13,15 +13,22 @@ namespace OrdersAPI.WebAPI.Controllers
 		private readonly IOrderGetterService _orderGetterService;
 		private readonly IOrderAdderService _orderAdderService;
 		private readonly IOrderUpdaterService _orderUpdaterService;
+		private readonly IOrderDeleterService _orderDeleterService;
         #endregion
 
         #region constructors
-        public OrdersController(ILogger<OrdersController> logger, IOrderGetterService orderGetterService, IOrderAdderService orderAdderService, IOrderUpdaterService orderUpdaterService)
+        public OrdersController(
+			ILogger<OrdersController> logger, 
+			IOrderGetterService orderGetterService, 
+			IOrderAdderService orderAdderService, 
+			IOrderUpdaterService orderUpdaterService,
+			IOrderDeleterService orderDeleterService)
         {
 			_logger = logger;
             _orderGetterService = orderGetterService;
 			_orderAdderService = orderAdderService;
 			_orderUpdaterService = orderUpdaterService;
+			_orderDeleterService = orderDeleterService;
         }
 		#endregion
 
@@ -103,6 +110,23 @@ namespace OrdersAPI.WebAPI.Controllers
 			}
 
 			return Ok(updatedOrder);
+		}
+
+
+		/// <summary>
+		/// Deletes the order with the given orderId from the database.
+		/// </summary>
+		/// <param name="orderId">The orderId of the order to be deleted.</param>
+		/// <returns>StatusCode 202 if successful, StatusCode 404 if not.</returns>
+		[HttpDelete("{orderId}")]
+		public async Task<ActionResult> DeleteOrderById(Guid orderId)
+		{
+			_logger.LogInformation("{Method} reached with Order ID {OrderId}... Calling {NextMethod}", nameof(DeleteOrderById), orderId, nameof(_orderDeleterService.DeleteOrderByIdAsync));
+
+			var isDeleted = await _orderDeleterService.DeleteOrderByIdAsync(orderId);
+
+			if (isDeleted) return NoContent();
+			else return NotFound();
 		}
 	}
 }

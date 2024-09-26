@@ -19,21 +19,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 
-//builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrderGetterService, OrderGetterService>();
 builder.Services.AddScoped<IOrderAdderService, OrderAdderService>();
 builder.Services.AddScoped<IOrderUpdaterService, OrderUpdaterService>();
+builder.Services.AddScoped<IOrderDeleterService, OrderDeleterService>();
+
+builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 
 var app = builder.Build();
-
-//if (app.Environment.IsDevelopment())
-//{
-//	app.UseSwagger();
-//	app.UseSwaggerUI();
-//}
 
 app.UseHttpsRedirection();
 
