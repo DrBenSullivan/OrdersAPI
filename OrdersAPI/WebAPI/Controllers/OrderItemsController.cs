@@ -5,6 +5,9 @@ using OrdersAPI.Core.Services.OrderItemsServices;
 
 namespace OrdersAPI.WebAPI.Controllers
 {
+	/// <summary>
+	/// The Controller for performing operations on the "OrderItems" table of the application's database.
+	/// </summary>
 	[Route("api/orders/{orderId}/items")]
 	public class OrderItemsController : CustomControllerBase
 	{
@@ -17,6 +20,7 @@ namespace OrdersAPI.WebAPI.Controllers
         #endregion
 
 		#region constructors
+		///<inheritdoc/>
 		public OrderItemsController(ILogger<OrderItemsController> logger, IOrderItemGetterService orderItemsGetterService, IOrderItemAdderService orderItemsAdderService, IOrderItemUpdaterService orderItemsUpdaterService, IOrderItemDeleterService orderItemDeleterService)
 		{
 			_logger = logger;
@@ -28,10 +32,10 @@ namespace OrdersAPI.WebAPI.Controllers
 		#endregion
 
 		/// <summary>
-		/// Gets all OrderItems from a given Order.
+		/// Retrieves all OrderItems from a given Order by the Order's OrderId.
 		/// </summary>
-		/// <param name="orderId">The GUID of the Order to retrieve OrderItems for.</param>
-		/// <returns>A List of OrderItemResponseDTOs of the OrderItems if the Order exists. Otherwise, 404 Not Found.</returns>
+		/// <param name="orderId">The OrderId of the Order whose OrderItems are to be retrieved.</param>
+		/// <returns>If the Order exists, the Order's OrderItems as a list of OrderItemResponseDTOs. Otherwise, 404 Not Found.</returns>
 		[HttpGet]
 		public async Task<ActionResult<List<OrderItemResponseDTO>>> GetAllItemsByOrderId(Guid orderId)
 		{
@@ -49,10 +53,10 @@ namespace OrdersAPI.WebAPI.Controllers
 
 
 		/// <summary>
-		/// Gets an OrderItem by its GUID.
+		/// Retrieves an existing OrderItem using the provided OrderItemId.
 		/// </summary>
-		/// <param name="orderItemId">The GUID of the item to be found.</param>
-		/// <returns>An OrderItemResponseDTO of the OrderItem if it exists. Otherwise, 404 Not Found.</returns>
+		/// <param name="orderItemId">The OrderId of the OrderItem to be retrieved.</param>
+		/// <returns>If the OrderItem exists, an OrderItemResponseDTO of the OrderItem. Otherwise, 404 Not Found.</returns>
 		[HttpGet("{orderItemId}")]
 		public async Task<ActionResult<OrderItemResponseDTO>> GetOrderItemById(Guid orderItemId)
 		{
@@ -70,10 +74,10 @@ namespace OrdersAPI.WebAPI.Controllers
 
 
 		/// <summary>
-		/// Adds and OrderItem to a given Order.
+		/// Adds an OrderItem to an existing Order.
 		/// </summary>
-		/// <param name="orderId">The GUID of the Order to be added to.</param>
-		/// <param name="addOrderItemDTO">An AddOrderItemDTO of the OrderItem to add to the Order.</param>
+		/// <param name="orderId">The OrderId of the existing Order to add the OrderItem to.</param>
+		/// <param name="addOrderItemDTO">An AddOrderItemDTO of the OrderItem to be added to the Order.</param>
 		/// <returns>An OrderItemResponseDTO of the added item, if sucessful.</returns>
 		[HttpPost]
 		public async Task<ActionResult<OrderItemResponseDTO>> AddItemToOrder(Guid orderId, [Bind] AddOrderItemDTO addOrderItemDTO)
@@ -96,12 +100,12 @@ namespace OrdersAPI.WebAPI.Controllers
 
 
 		/// <summary>
-		/// Updates an existing OrderItem's details.
+		/// Updates an existing OrderItem.
 		/// </summary>
-		/// <param name="orderId">The OrderId of the given OrderItem.</param>
+		/// <param name="orderId">The OrderId of the OrderItem to be updated.</param>
 		/// <param name="orderItemId">The OrderItemId of the given OrderItem.</param>
 		/// <param name="updateOrderItemDTO">An updateOrderItemDTO of the OrderItem to be updated.</param>
-		/// <returns></returns>
+		/// <returns>If successful, 200 Ok with an OrderItemResponseDTO of the OrderItem.</returns>
 		[HttpPut("{orderItemId}")]
 		public async Task<ActionResult<OrderItemResponseDTO>> UpdateOrderItem(Guid orderId, Guid orderItemId, [Bind] UpdateOrderItemDTO updateOrderItemDTO)
 		{
@@ -122,10 +126,10 @@ namespace OrdersAPI.WebAPI.Controllers
 		}
 
 		/// <summary>
-		/// Deletes the OrderItem with the given OrderItemId from the database.
+		/// Deletes an existing OrderItem using its OrderItemId.
 		/// </summary>
-		/// <param name="orderItemId">The OrderItemId of the order to be deleted.</param>
-		/// <returns>StatusCode 202 if successful, StatusCode 404 if not.</returns>
+		/// <param name="orderItemId">The OrderItemId of the OrderItem to be deleted.</param>
+		/// <returns>If successful, StatusCode 202 if successful. Otherwise, StatusCode 404.</returns>
 		[HttpDelete("{orderItemId}")]
 		public async Task<ActionResult> DeleteOrderItemById(Guid orderItemId)
 		{

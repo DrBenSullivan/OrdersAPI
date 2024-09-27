@@ -5,6 +5,7 @@ using OrdersAPI.Core.Models.DTOs;
 
 namespace OrdersAPI.Core.Services.OrderItemsServices
 {
+	///	<inheritdoc/>
 	public class OrderItemGetterService : IOrderItemGetterService
 	{
 		#region private readonly fields
@@ -13,18 +14,15 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
         #endregion
 
         #region constructors
-        public OrderItemGetterService(ILogger<OrderItemGetterService> logger, IOrderItemsRepository orderItemsRepository)
+        ///	<inheritdoc/>
+		public OrderItemGetterService(ILogger<OrderItemGetterService> logger, IOrderItemsRepository orderItemsRepository)
         {
             _logger = logger;
             _orderItemsRepository = orderItemsRepository;
         }
 		#endregion
 
-		/// <summary>
-		/// Gets a list of OrderItems from an Order by the Order's OrderId.
-		/// </summary>
-		/// <param name="orderId">The Order's GUID.</param>
-		/// <returns>A list of OrderItemResponseDTOs or null, if no OrderItems are found.</returns>
+		///	<inheritdoc/>
 		public async Task<List<OrderItemResponseDTO>?> GetOrderItemsByOrderIdAsync(Guid orderId)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}. Calling {NextClass}.{NextMethod}.", 
@@ -42,11 +40,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
 			return orderItems.ToOrderItemResponseDTOList();
 		}
 
-		/// <summary>
-		/// Gets an OrderItem by its OrderItemId.
-		/// </summary>
-		/// <param name="orderItemId">The OrderItem's GUID.</param>
-		/// <returns>An OrderItemResponseDTO or, null if the OrderItem does not exist.</returns>
+		///<inheritdoc/>
 		public async Task<OrderItemResponseDTO?> GetOrderItemByIdAsync(Guid orderItemId)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}. Calling {NextClass}.{NextMethod}.", 

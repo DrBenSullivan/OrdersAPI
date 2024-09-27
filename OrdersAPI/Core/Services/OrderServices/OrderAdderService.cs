@@ -6,6 +6,7 @@ using OrdersAPI.Core.Services.OrderItemsServices;
 
 namespace OrdersAPI.Core.Services.OrderServices
 {
+	///<inheritdoc/>
 	public class OrderAdderService : IOrderAdderService
 	{
 		#region private readonly fields
@@ -15,6 +16,7 @@ namespace OrdersAPI.Core.Services.OrderServices
         #endregion
 
         #region constructors
+		///<inheritdoc/>
         public OrderAdderService(ILogger<OrderAdderService> logger, IOrdersRepository ordersRepository, IOrderItemsRepository orderItemsRepository)
         {
 			_logger = logger;
@@ -23,11 +25,7 @@ namespace OrdersAPI.Core.Services.OrderServices
         }
 		#endregion
 
-		/// <summary>
-		/// Adds the given order.
-		/// </summary>
-		/// <param name="addOrderDTO">AddOrderDTO to be added.</param>
-		/// <returns>OrderResponseDTO of the added order.</returns>
+		///<inheritdoc/>
 		public async Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO addOrderDTO)
 		{
 			_logger.LogInformation("{Service}.{Method} reached... Processing AddOrderDTO with OrderNumber {OrderNumber}", nameof(OrderAdderService), nameof(OrderAdderService.AddOrderAsync), addOrderDTO.OrderNumber);

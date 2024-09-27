@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OrdersAPI</name>
+    </assembly>
+    <members>
+        <member name="T:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository">
+            <summary>
+            The class with methods for accessing the "OrderItems" table of the application's DbContext.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository.AddOrderItemAsync(OrdersAPI.Core.Models.OrderItem)">
+            <summary>
+            Adds an OrderItem to the database.
+            </summary>
+            <param name="orderItem">The OrderItem to be added.</param>
+            <returns>The added OrderItem.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository.GetOrderItemsByOrderIdAsync(System.Guid)">
+            <summary>
+            Retrieves a list of OrderItems from an existing Order in the database.
+            </summary>
+            <param name="orderId">The OrderId of the Order whose OrderItems are to be retrieved.</param>
+            <returns>If the Order exists, a list of OrderItems. Otherwise, null.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository.GetOrderItemByIdAsync(System.Guid)">
+            <summary>
+            Revieves an existing OrderItem using its OrderItemId from the database.
+            </summary>
+            <param name="orderItemId">The OrderItemID of the OrderItem to be retrieved.</param>
+            <returns>If the OrderItem exists, the OrderItem. Otherwise, null.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository.UpdateOrderItemAsync(OrdersAPI.Core.Models.OrderItem)">
+            <summary>
+            Updates an existing OrderItem in the database.
+            </summary>
+            <param name="orderItem">The updated OrderItem.</param>
+            <returns>If successful, the updated OrderItem. Otherwise, null.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository.DeleteOrderItemAsync(System.Guid)">
+            <summary>
+            Deletes an existing OrderItem from the database.
+            </summary>
+            <param name="orderItemId">The OrderItemId of the OrderItem to be deleted.</param>
+            <returns>If successful, boolean 'true'. Otherwise, 'false'.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository.OrderItemExistsAsync(System.Guid)">
+            <summary>
+            Checks if an OrderItem exists within the database using an OrderItemId.
+            </summary>
+            <param name="orderItemId">The OrderItemId of the OrderItem to be checked.</param>
+            <returns>If the OrderItem exists, boolean 'true'. Otherwise, 'false'.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository">
+            <summary>
+            The class with methods for accessing the "Orders" table of the application's DbContext.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository.GetAllOrdersAsync">
+            <summary>
+            Retrieves all Orders from the database.
+            </summary>
+            <returns>If Orders exist, a list of Orders. Otherwise, an empty list.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository.GetOrderByIdAsync(System.Guid)">
+            <summary>
+            Retrieves an existing Order from the database using its OrderId.
+            </summary>
+            <param name="orderId">The existing Order's OrderId to be retrieved.</param>
+            <returns>The retrieved Order.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository.AddOrderAsync(OrdersAPI.Core.Models.Order)">
+            <summary>
+            Adds an Order to the database.
+            </summary>
+            <param name="order">The Order to be added.</param>
+            <returns>The added Order.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository.UpdateOrderAsync(OrdersAPI.Core.Models.Order)">
+            <summary>
+            Updates an existing Order in the database.
+            </summary>
+            <param name="order">The updated Order to be update the existing Order with.</param>
+            <returns>The updated Order.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository.DeleteOrderByIdAsync(System.Guid)">
+            <summary>
+            Deletes an existing Order in the database.
+            </summary>
+            <param name="orderId">The OrderId of the existing Order to be deleted.</param>
+            <returns>Boolean 'true' if the Order was deleted. Otherwise, 'false'.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository.OrderExistsAsync(System.Nullable{System.Guid})">
+            <summary>
+            Checks if an Order with the given OrderId exists in the database.
+            </summary>
+            <param name="orderId">The OrderId to be checked.</param>
+            <returns>Boolean 'true' if an Order with the given OrderId exists. Otherwise, 'false'.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemAdderService">
+            <summary>
+            The class with methods to add OrderItems to the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemAdderService.AddOrderItemAsync(OrdersAPI.Core.Models.DTOs.AddOrderItemDTO)">
+            <summary>
+            Converts an AddOrderItemDTO to an OrderItem and sends it to OrderItemRepository to be added.
+            </summary>
+            <param name="addOrderItemDTO">The OrderItem to be added as an AddOrderItemDTO.</param>
+            <returns>If successful, the added OrderItem as an OrderItemResponseDTO. Otherwise, null.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemDeleterService">
+            <summary>
+            The class with methods to delete OrderItems from the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemDeleterService.DeleteOrderItemAsync(System.Guid)">
+            <summary>
+            Checks if an OrderItem with given OrderItemId exists and passes it to OrderItemRepository for deletion.
+            </summary>
+            <param name="orderItemId">The OrderId of the OrderItem to be deleted.</param>
+            <returns>If successfully deleted, Boolean 'true'. Otherwise, 'false'.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemGetterService">
+            <summary>
+            The class with methods to retrieve OrderItems from the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemGetterService.GetOrderItemsByOrderIdAsync(System.Guid)">
+            <summary>
+            Retrieves a list of OrderItems from an existing Order using the Order's OrderId.
+            </summary>
+            <param name="orderId">The OrderId of the existing Order whose OrderItems are to be retrieved.</param>
+            <returns>If OrderItems are found, a list of OrderItemResponseDTOs or null, if no OrderItems are found.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemGetterService.GetOrderItemByIdAsync(System.Guid)">
+            <summary>
+            Retrieves an OrderItem using its OrderItemId.
+            </summary>
+            <param name="orderItemId">The OrderItemId of the OrderItem to be retrieved.</param>
+            <returns>If the OrderItem exists, the OrderItem as an OrderItemResponseDTO. Otherwise, null.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemUpdaterService">
+            <summary>
+            The class with methods to update existing OrderItems within the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemUpdaterService.UpdateOrderItemAsync(OrdersAPI.Core.Models.DTOs.UpdateOrderItemDTO)">
+            <summary>
+            Converts an UpdateOrderItemDTO into an OrderItem and sends it to OrderItemRepository to be update.
+            </summary>
+            <param name="updateOrderItemDTO">The updated OrderItem details as an UpdateOrderItemDTO.</param>
+            <returns>If successful, the updated OrderItem as an OrderItemResponseDTO. Otherwise, null.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderAdderService">
+            <summary>
+            The class with methods to add Orders to the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderAdderService.AddOrderAsync(OrdersAPI.Core.Models.DTOs.AddOrderDTO)">
+            <summary>
+            Converts an AddOrderDTO to an Order and sends it to OrdersRepository to be added to the database.
+            </summary>
+            <param name="addOrderDTO">The Order to be added as an AddOrderDTO.</param>
+            <returns>The added Order as an OrderResponseDTO.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderDeleterService">
+            <summary>
+            The class with methods to delete OrderItems from the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderDeleterService.DeleteOrderByIdAsync(System.Guid)">
+            <summary>
+            Sends an OrderId to OrderRepository for the Order to be deleted.
+            </summary>
+            <param name="orderId">The OrderId of the Order to be deleted.</param>
+            <returns>If successful, Boolean 'true'. Otherwise, 'false'.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderGetterService">
+            <summary>
+            The class with methods to retrieve OrderItems from the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderGetterService.GetAllOrdersAsync">
+            <summary>
+            Retrieves all Orders.
+            </summary>
+            <returns>A list of all Orders as a list of OrderResponseDTOs.</returns>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderGetterService.GetOrderByIdAsync(System.Guid)">
+            <summary>
+            Revieves an Order using its OrderId.
+            </summary>
+            <param name="orderId">The OrderId of the Order to be retrieved.</param>
+            <returns>If the Order exists, the Order as an OrderResponseDTO. Otherwise, null.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderUpdaterService">
+            <summary>
+            The class with methods to update existing OrderItems within the database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderUpdaterService.UpdateOrderAsync(OrdersAPI.Core.Models.DTOs.UpdateOrderDTO)">
+            <summary>
+            Converts an UpdateOrderDTO into an Order and sends it to OrdersRepository to update the database.
+            </summary>
+            <param name="updateOrderDTO">The Order details to be updated as an UpdateOrderDTO.</param>
+            <returns>If successful, the updated Order as an OrderResponseDTO. Otherwise, null.</returns>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderItemsServices.OrderItemAdderService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemAdderService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderItemsServices.OrderItemAdderService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository,OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemAdderService.AddOrderItemAsync(OrdersAPI.Core.Models.DTOs.AddOrderItemDTO)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderItemsServices.OrderItemDeleterService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemDeleterService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderItemsServices.OrderItemDeleterService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemDeleterService.DeleteOrderItemAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderItemsServices.OrderItemGetterService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemGetterService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderItemsServices.OrderItemGetterService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemGetterService.GetOrderItemsByOrderIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemGetterService.GetOrderItemByIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderItemsServices.OrderItemUpdaterService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemUpdaterService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderItemsServices.OrderItemUpdaterService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderItemsServices.OrderItemUpdaterService.UpdateOrderItemAsync(OrdersAPI.Core.Models.DTOs.UpdateOrderItemDTO)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderServices.OrderAdderService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderAdderService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderServices.OrderAdderService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository,OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrderItemsRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderAdderService.AddOrderAsync(OrdersAPI.Core.Models.DTOs.AddOrderDTO)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderServices.OrderDeleterService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderDeleterService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderServices.OrderDeleterService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderDeleterService.DeleteOrderByIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderServices.OrderGetterService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderGetterService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderServices.OrderGetterService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderGetterService.GetAllOrdersAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderGetterService.GetOrderByIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Core.Services.OrderServices.OrderUpdaterService">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderUpdaterService.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Core.Services.OrderServices.OrderUpdaterService},OrdersAPI.Core.Interfaces.RepositoryInterfaces.IOrdersRepository)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Core.Services.OrderServices.OrderUpdaterService.UpdateOrderAsync(OrdersAPI.Core.Models.DTOs.UpdateOrderDTO)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Infrastructure.Repositories.OrderItemsRepository},OrdersAPI.Infrastructure.DatabaseContext.ApplicationDbContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.AddOrderItemAsync(OrdersAPI.Core.Models.OrderItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.GetOrderItemsByOrderIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.GetOrderItemByIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.UpdateOrderItemAsync(OrdersAPI.Core.Models.OrderItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.DeleteOrderItemAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrderItemsRepository.OrderItemExistsAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Infrastructure.Repositories.OrdersRepository">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.Infrastructure.Repositories.OrdersRepository},OrdersAPI.Infrastructure.DatabaseContext.ApplicationDbContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.GetAllOrdersAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.GetOrderByIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.AddOrderAsync(OrdersAPI.Core.Models.Order)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.UpdateOrderAsync(OrdersAPI.Core.Models.Order)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.DeleteOrderByIdAsync(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.Infrastructure.Repositories.OrdersRepository.OrderExistsAsync(System.Nullable{System.Guid})">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrdersAPI.Migrations.Initial">
+            <inheritdoc />
+        </member>
+        <member name="M:OrdersAPI.Migrations.Initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrdersAPI.Migrations.Initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrdersAPI.Migrations.Initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OrdersAPI.WebAPI.Controllers.OrderItemsController">
+            <summary>
+            The Controller for performing operations on the "OrderItems" table of the application's database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.WebAPI.Controllers.OrderItemsController},OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemGetterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemAdderService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemUpdaterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemDeleterService)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.GetAllItemsByOrderId(System.Guid)">
+            <summary>
+            Retrieves all OrderItems from a given Order by the Order's OrderId.
+            </summary>
+            <param name="orderId">The OrderId of the Order whose OrderItems are to be retrieved.</param>
+            <returns>If the Order exists, the Order's OrderItems as a list of OrderItemResponseDTOs. Otherwise, 404 Not Found.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.GetOrderItemById(System.Guid)">
+            <summary>
+            Retrieves an existing OrderItem using the provided OrderItemId.
+            </summary>
+            <param name="orderItemId">The OrderId of the OrderItem to be retrieved.</param>
+            <returns>If the OrderItem exists, an OrderItemResponseDTO of the OrderItem. Otherwise, 404 Not Found.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.AddItemToOrder(System.Guid,OrdersAPI.Core.Models.DTOs.AddOrderItemDTO)">
+            <summary>
+            Adds an OrderItem to an existing Order.
+            </summary>
+            <param name="orderId">The OrderId of the existing Order to add the OrderItem to.</param>
+            <param name="addOrderItemDTO">An AddOrderItemDTO of the OrderItem to be added to the Order.</param>
+            <returns>An OrderItemResponseDTO of the added item, if sucessful.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.UpdateOrderItem(System.Guid,System.Guid,OrdersAPI.Core.Models.DTOs.UpdateOrderItemDTO)">
+            <summary>
+            Updates an existing OrderItem.
+            </summary>
+            <param name="orderId">The OrderId of the OrderItem to be updated.</param>
+            <param name="orderItemId">The OrderItemId of the given OrderItem.</param>
+            <param name="updateOrderItemDTO">An updateOrderItemDTO of the OrderItem to be updated.</param>
+            <returns>If successful, 200 Ok with an OrderItemResponseDTO of the OrderItem.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.DeleteOrderItemById(System.Guid)">
+            <summary>
+            Deletes an existing OrderItem using its OrderItemId.
+            </summary>
+            <param name="orderItemId">The OrderItemId of the OrderItem to be deleted.</param>
+            <returns>If successful, StatusCode 202 if successful. Otherwise, StatusCode 404.</returns>
+        </member>
+        <member name="T:OrdersAPI.WebAPI.Controllers.OrdersController">
+            <summary>
+            The Controller for performing operations on the "Orders" table of the application's database.
+            </summary>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.WebAPI.Controllers.OrdersController},OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderGetterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderAdderService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderUpdaterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderDeleterService)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.GetOrders">
+            <summary>
+            Retrieves all orders.
+            </summary>
+            <returns>All orders as a list of OrderResponseDTOs.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.GetOrderById(System.Guid)">
+            <summary>
+            Retrieves an existing Order using its OrderId.
+            </summary>
+            <param name="orderId">The OrderId of the existing Order to be retrieved.</param>
+            <returns>An Order as an OrderResponseDTO.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.AddOrder(OrdersAPI.Core.Models.DTOs.AddOrderDTO)">
+            <summary>
+            Adds a new Order.
+            </summary>
+            <param name="addOrderRequest">Details of the Order to be added.</param>
+            <returns>The added Order as an OrderResponseDTO.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.UpdateOrder(System.Guid,OrdersAPI.Core.Models.DTOs.UpdateOrderDTO)">
+            <summary>
+            Updates an existing Order.
+            </summary>
+            <param name="orderId">OrderId of the existing Order to be updated.</param>
+            <param name="updateOrderRequest">An UpdateOrderDTO containing the new details of the Order.</param>
+            <returns>The updated Order as an OrderResponseDTO.</returns>
+        </member>
+        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.DeleteOrderById(System.Guid)">
+            <summary>
+            Deletes an existing Order using its OrderId.
+            </summary>
+            <param name="orderId">The OrderId of the existing Order to be deleted.</param>
+            <returns>If successful, StatusCode 204. Otherwise, StatusCode 404.</returns>
+        </member>
+    </members>
+</doc>

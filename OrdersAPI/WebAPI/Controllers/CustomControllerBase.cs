@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#pragma warning disable 1591
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace OrdersAPI.WebAPI.Controllers
 {

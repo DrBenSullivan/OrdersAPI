@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#pragma warning disable 1591
+
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace OrdersAPI.Core.Models

@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿#pragma warning disable 1591
 
 namespace OrdersAPI.Core.Models.DTOs
 {

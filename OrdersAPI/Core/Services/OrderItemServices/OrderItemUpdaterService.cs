@@ -5,6 +5,7 @@ using OrdersAPI.Core.Models.DTOs;
 
 namespace OrdersAPI.Core.Services.OrderItemsServices
 {
+	///<inheritdoc/>
 	public class OrderItemUpdaterService : IOrderItemUpdaterService
 	{
 		#region private readonly fields
@@ -13,6 +14,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
         #endregion
 
         #region constructors
+		///<inheritdoc/>
         public OrderItemUpdaterService(ILogger<OrderItemUpdaterService> logger, IOrderItemsRepository orderItemsRepository)
         {
             _logger = logger;
@@ -20,11 +22,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
         }
 		#endregion
 
-		/// <summary>
-		/// Updates a given OrderItem.
-		/// </summary>
-		/// <param name="updateOrderItemDTO">An UpdateOrderItemDTO to update the given OrderItem to.</param>
-		/// <returns>An OrderItemResponseDTO if successful. Otherwise, null.</returns>
+		///<inheritdoc/>
 		public async Task<OrderItemResponseDTO?> UpdateOrderItemAsync(UpdateOrderItemDTO updateOrderItemDTO)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}. Calling {NextClass}.{NextMethod}.", 

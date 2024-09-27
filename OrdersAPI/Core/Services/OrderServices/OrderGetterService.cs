@@ -5,6 +5,7 @@ using OrdersAPI.Core.Models.DTOs;
 
 namespace OrdersAPI.Core.Services.OrderServices
 {
+	///<inheritdoc/>
 	public class OrderGetterService : IOrderGetterService
 	{
 		#region private readonly fields
@@ -13,17 +14,15 @@ namespace OrdersAPI.Core.Services.OrderServices
         #endregion
 
 		# region constructors
-        public OrderGetterService(ILogger<OrderGetterService> logger, IOrdersRepository ordersRepository)
+        ///<inheritdoc/>
+		public OrderGetterService(ILogger<OrderGetterService> logger, IOrdersRepository ordersRepository)
         {
 			_logger = logger;
             _ordersRepository = ordersRepository;
         }
 		# endregion
 
-		/// <summary>
-		/// Retrieves all orders.
-		/// </summary>
-		/// <returns>A list of OrderResponseDTOs</returns>
+		///<inheritdoc/>
 		public async Task<List<OrderResponseDTO>> GetAllOrdersAsync()
 		{
 			_logger.LogInformation("{Service}.{Method} reached... \nCalling {NextMethod}...", nameof(OrderGetterService), nameof(GetAllOrdersAsync), nameof(_ordersRepository.GetAllOrdersAsync));
@@ -31,11 +30,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 			return orders.ToOrderResponseDTOList();
 		}
 
-		/// <summary>
-		/// Finds an order by the given GUID.
-		/// </summary>
-		/// <param name="orderId"></param>
-		/// <returns>A nullable OrderResponseDTO.</returns>
+		///<inheritdoc/>
 		public async Task<OrderResponseDTO?> GetOrderByIdAsync(Guid orderId)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with orderId {OrderId}... \nCalling {NextMethod}", nameof(OrderGetterService), nameof(GetOrderByIdAsync), orderId, nameof(_ordersRepository.GetOrderByIdAsync));

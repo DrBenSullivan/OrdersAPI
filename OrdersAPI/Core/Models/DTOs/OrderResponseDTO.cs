@@ -1,4 +1,6 @@
-﻿namespace OrdersAPI.Core.Models.DTOs
+﻿#pragma warning disable 1591
+
+namespace OrdersAPI.Core.Models.DTOs
 {
 	public class OrderResponseDTO
     {

@@ -4,6 +4,7 @@ using OrdersAPI.Core.Services.OrderItemsServices;
 
 namespace OrdersAPI.Core.Services.OrderServices
 {
+	///<inheritdoc/>
 	public class OrderDeleterService : IOrderDeleterService
 	{
 		#region private readonly fields
@@ -12,13 +13,15 @@ namespace OrdersAPI.Core.Services.OrderServices
         #endregion
 
         #region constructors
-        public OrderDeleterService(ILogger<OrderDeleterService> logger, IOrdersRepository ordersRepository)
+		///<inheritdoc/>
+		public OrderDeleterService(ILogger<OrderDeleterService> logger, IOrdersRepository ordersRepository)
         {
             _logger = logger;
 			_ordersRepository = ordersRepository;
         }
 		#endregion
 
+		///<inheritdoc/>
 		public async Task<bool> DeleteOrderByIdAsync(Guid orderId)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}... Calling {NextMethod}", nameof(OrderDeleterService), nameof(DeleteOrderByIdAsync), orderId, nameof(_ordersRepository.DeleteOrderByIdAsync));

@@ -6,6 +6,9 @@ using OrdersAPI.Core.Services.OrderServices;
 
 namespace OrdersAPI.WebAPI.Controllers
 {
+	/// <summary>
+	/// The Controller for performing operations on the "Orders" table of the application's database.
+	/// </summary>
 	public class OrdersController : CustomControllerBase
 	{
 		#region private readonly fields
@@ -17,7 +20,8 @@ namespace OrdersAPI.WebAPI.Controllers
         #endregion
 
         #region constructors
-        public OrdersController(
+        ///<inheritdoc/>
+		public OrdersController(
 			ILogger<OrdersController> logger, 
 			IOrderGetterService orderGetterService, 
 			IOrderAdderService orderAdderService, 
@@ -33,9 +37,9 @@ namespace OrdersAPI.WebAPI.Controllers
 		#endregion
 
 		/// <summary>
-		/// Gets all orders.
+		/// Retrieves all orders.
 		/// </summary>
-		/// <returns>A list of orders.</returns>
+		/// <returns>All orders as a list of OrderResponseDTOs.</returns>
 		[HttpGet]
 		public async Task<ActionResult<List<OrderResponseDTO>>> GetOrders()
 		{
@@ -45,10 +49,10 @@ namespace OrdersAPI.WebAPI.Controllers
 
 
 		/// <summary>
-		/// Retrieves an order by the given GUID.
+		/// Retrieves an existing Order using its OrderId.
 		/// </summary>
-		/// <param name="orderId">The GUID of the order to be retrieved.</param>
-		/// <returns>An order.</returns>
+		/// <param name="orderId">The OrderId of the existing Order to be retrieved.</param>
+		/// <returns>An Order as an OrderResponseDTO.</returns>
 		[HttpGet("{orderId}")]
 		public async Task<ActionResult<OrderResponseDTO>> GetOrderById([Bind] Guid orderId)
 		{
@@ -66,10 +70,10 @@ namespace OrdersAPI.WebAPI.Controllers
 
 
 		/// <summary>
-		/// Adds a new order.
+		/// Adds a new Order.
 		/// </summary>
-		/// <param name="addOrderRequest">Details of the order.</param>
-		/// <returns>The added order.</returns>
+		/// <param name="addOrderRequest">Details of the Order to be added.</param>
+		/// <returns>The added Order as an OrderResponseDTO.</returns>
 		[HttpPost]
 		public async Task<ActionResult> AddOrder([Bind] AddOrderDTO addOrderRequest)
 		{
@@ -86,12 +90,13 @@ namespace OrdersAPI.WebAPI.Controllers
             return CreatedAtAction(nameof(GetOrderById), new { orderId = addedOrder.OrderId }, addedOrder);	
 		}
 
+
 		/// <summary>
-		/// Updates a give order.
+		/// Updates an existing Order.
 		/// </summary>
-		/// <param name="orderId">GUID of the order to be updated in query string.</param>
-		/// <param name="updateOrderRequest">UpdateOrderDTO with new information.</param>
-		/// <returns>OrderResponseDTO of the updated order.</returns>
+		/// <param name="orderId">OrderId of the existing Order to be updated.</param>
+		/// <param name="updateOrderRequest">An UpdateOrderDTO containing the new details of the Order.</param>
+		/// <returns>The updated Order as an OrderResponseDTO.</returns>
 		[HttpPut("{orderId}")]
 		public async Task<ActionResult<OrderResponseDTO>> UpdateOrder(Guid orderId, [Bind] UpdateOrderDTO updateOrderRequest)
 		{
@@ -114,10 +119,10 @@ namespace OrdersAPI.WebAPI.Controllers
 
 
 		/// <summary>
-		/// Deletes the order with the given orderId from the database.
+		/// Deletes an existing Order using its OrderId.
 		/// </summary>
-		/// <param name="orderId">The orderId of the order to be deleted.</param>
-		/// <returns>StatusCode 202 if successful, StatusCode 404 if not.</returns>
+		/// <param name="orderId">The OrderId of the existing Order to be deleted.</param>
+		/// <returns>If successful, StatusCode 204. Otherwise, StatusCode 404.</returns>
 		[HttpDelete("{orderId}")]
 		public async Task<ActionResult> DeleteOrderById(Guid orderId)
 		{

@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#pragma warning disable 1591
+
+using Microsoft.EntityFrameworkCore;
 using OrdersAPI.Core.Models;
-using OrdersAPI.Infrastructure.Repositories;
 
 namespace OrdersAPI.Infrastructure.DatabaseContext
 {

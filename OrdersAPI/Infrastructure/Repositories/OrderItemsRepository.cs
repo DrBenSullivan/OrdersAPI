@@ -6,6 +6,7 @@ using OrdersAPI.Infrastructure.DatabaseContext;
 
 namespace OrdersAPI.Infrastructure.Repositories
 {
+	///<inheritdoc/>
 	public class OrderItemsRepository : IOrderItemsRepository
 	{
 		#region private readonly fields
@@ -14,6 +15,7 @@ namespace OrdersAPI.Infrastructure.Repositories
         #endregion
 
         #region constructors
+		///<inheritdoc/>
         public OrderItemsRepository(ILogger<OrderItemsRepository> logger, ApplicationDbContext db)
         {
 			_logger = logger;
@@ -22,11 +24,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		#endregion
 
 
-		/// <summary>
-		/// Adds an OrderItem to the database.
-		/// </summary>
-		/// <param name="orderItem">The OrderItem to be added.</param>
-		/// <returns>The OrderItem</returns>
+		///<inheritdoc/>
 		public async Task<OrderItem> AddOrderItemAsync(OrderItem orderItem)
 		{
 			_logger.LogInformation("{Method} reached with OrderItemId {OrderItemId}, adding to database...", nameof(AddOrderItemAsync), orderItem.OrderItemId);
@@ -36,11 +34,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		}
 
 
-		/// <summary>
-		/// Gets a list of OrderItems from the Order with the given orderId.
-		/// </summary>
-		/// <param name="orderId">The Order's GUID.</param>
-		/// <returns>A list of OrderItems or, null if the Order does not exist.</returns>
+		/// <inheritdoc/>
 		public async Task<List<OrderItem>?> GetOrderItemsByOrderIdAsync(Guid orderId)
 		{
 			_logger.LogInformation("{Method} reached with OrderId {OrderId}, interrogating database...", nameof(GetOrderItemsByOrderIdAsync), orderId);
@@ -51,11 +45,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		}
 
 
-		/// <summary>
-		/// Gets an OrderItem by its GUID.
-		/// </summary>
-		/// <param name="orderItemId">The OrderItem's GUID</param>
-		/// <returns>The OrderItem or, null if the OrderItem does not exist.</returns>
+		///<inheritdoc/>
 		public async Task<OrderItem?> GetOrderItemByIdAsync(Guid orderItemId)
 		{
 			_logger.LogInformation("{Method} reached with OrderItemId {OrderItemId}. Interrogating database...", nameof(GetOrderItemByIdAsync), orderItemId);
@@ -65,11 +55,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		}
 
 
-		/// <summary>
-		/// Updates a given OrderItem.
-		/// </summary>
-		/// <param name="orderItem">The new OrderItem details.</param>
-		/// <returns>The updated OrderItem if successful, otherwise null.</returns>
+		///<inheritdoc/>
 		public async Task<OrderItem?> UpdateOrderItemAsync(OrderItem orderItem)
 		{
 			_logger.LogInformation("{Repository}.{Method} reached. Interrogating database...", nameof(OrderItemsRepository), nameof(GetOrderItemByIdAsync));
@@ -94,11 +80,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		}
 
 
-		/// <summary>
-		/// Deletes an existing OrderItem from the database.
-		/// </summary>
-		/// <param name="orderItemId">The OrderItemId of the OrderItem to be deleted.</param>
-		/// <returns>true if successful. Otherwise, false.</returns>
+		///<inheritdoc/>
 		public async Task<bool> DeleteOrderItemAsync(Guid orderItemId)
 		{
 			_logger.LogInformation("{Repository}.{Method} reached with OrderItemId {OrderItemId}. Interrogating database...", nameof(OrderItemsRepository), nameof(DeleteOrderItemAsync), orderItemId);
@@ -120,11 +102,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 		}
 
 
-		/// <summary>
-		/// Checks if an OrderItem with the given GUID exists.
-		/// </summary>
-		/// <param name="orderItemId">The OrderItem's GUID.</param>
-		/// <returns>true if exists, otherwise false.</returns>
+		///<inheritdoc/>
 		public async Task<bool> OrderItemExistsAsync(Guid orderItemId)
 		{
 			if (orderItemId == Guid.Empty)

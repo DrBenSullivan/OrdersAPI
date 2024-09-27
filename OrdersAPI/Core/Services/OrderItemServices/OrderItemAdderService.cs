@@ -8,6 +8,7 @@ using OrdersAPI.Infrastructure.Repositories;
 
 namespace OrdersAPI.Core.Services.OrderItemsServices
 {
+	///<inheritdoc/>
 	public class OrderItemAdderService : IOrderItemAdderService
 	{
 		#region private readonly fields
@@ -17,6 +18,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
         #endregion
 
         #region constructors
+		///<inheritdoc/>
         public OrderItemAdderService(ILogger<OrderItemAdderService> logger, IOrderItemsRepository orderItemsRepository, IOrdersRepository ordersRepository)
         {
             _logger = logger;
@@ -25,11 +27,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
         }
 		#endregion
 
-		/// <summary>
-		/// Adds the given AddOrderItemDTO.
-		/// </summary>
-		/// <param name="addOrderItemDTO">The OrderItem to add.</param>
-		/// <returns>An OrderItemResponseDTO of the added OrderItem or, null if fails.</returns>
+		///<inheritdoc/>
 		public async Task<OrderItemResponseDTO?> AddOrderItemAsync(AddOrderItemDTO addOrderItemDTO)
 		{
 			_logger.LogInformation("{Service}.{Method} reached. Calling {NextMethod}...", nameof(OrderItemAdderService), nameof(AddOrderItemAsync), nameof(_ordersRepository.OrderExistsAsync));
