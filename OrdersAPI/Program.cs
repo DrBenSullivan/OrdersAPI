@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using OrdersAPI.Core.Interfaces.RepositoryInterfaces;
+using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces;
 using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces;
+using OrdersAPI.Core.Services.OrderItemsServices;
 using OrdersAPI.Core.Services.OrderServices;
 using OrdersAPI.Infrastructure.DatabaseContext;
 using OrdersAPI.Infrastructure.Repositories;
@@ -26,6 +28,8 @@ builder.Services.AddScoped<IOrderUpdaterService, OrderUpdaterService>();
 builder.Services.AddScoped<IOrderDeleterService, OrderDeleterService>();
 
 builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+builder.Services.AddScoped<IOrderItemsGetterService, OrderItemsGetterService>();
+builder.Services.AddScoped<IOrderItemsAdderService, OrderItemsAdderService>();
 
 var app = builder.Build();
 

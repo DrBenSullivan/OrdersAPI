@@ -8,18 +8,26 @@ namespace OrdersAPI.Core.Services.OrderServices
 	public class OrderUpdaterService : IOrderUpdaterService
 	{
 		#region private readonly fields
+		private readonly ILogger<OrderUpdaterService> _logger;
 		private readonly IOrdersRepository _ordersRepository;
         #endregion
 
         #region constructors
-        public OrderUpdaterService(IOrdersRepository ordersRepository)
+        public OrderUpdaterService(ILogger<OrderUpdaterService> logger, IOrdersRepository ordersRepository)
         {
+			_logger = logger;
 			_ordersRepository = ordersRepository;   
         }
 		#endregion
 
-		public async Task<OrderResponseDTO> UpdateOrderAsync(UpdateOrderDTO updateOrderDTO)
+		/// <summary>
+		/// Updates the Order with the given UpdateOrderDTO's OrderId.
+		/// </summary>
+		/// <param name="updateOrderDTO">The Order details to be updated.</param>
+		/// <returns>An OrderResponseDTO with the updated details or, null if fails.</returns>
+		public async Task<OrderResponseDTO?> UpdateOrderAsync(UpdateOrderDTO updateOrderDTO)
 		{
+			_logger.LogInformation("{Service}.{Method} reached for OrderNumber {OrderNumber}. Calling {NextClass}.{NextMethod}.", nameof(OrderUpdaterService), nameof(UpdateOrderAsync), updateOrderDTO.OrderNumber, nameof(_ordersRepository), nameof(_ordersRepository.UpdateOrderAsync));
 			Order updatedOrderDetails = updateOrderDTO.ToOrder();
 			
 			Order? updatedOrder = await _ordersRepository.UpdateOrderAsync(updatedOrderDetails);

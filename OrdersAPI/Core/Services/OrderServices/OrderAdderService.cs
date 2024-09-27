@@ -2,6 +2,7 @@
 using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces;
 using OrdersAPI.Core.Models;
 using OrdersAPI.Core.Models.DTOs;
+using OrdersAPI.Core.Services.OrderItemsServices;
 
 namespace OrdersAPI.Core.Services.OrderServices
 {
@@ -29,7 +30,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>OrderResponseDTO of the added order.</returns>
 		public async Task<OrderResponseDTO> AddOrderAsync(AddOrderDTO addOrderDTO)
 		{
-			_logger.LogInformation("{Method} reached... Processing AddOrderDTO with OrderNumber {OrderNumber}", nameof(OrderAdderService.AddOrderAsync), addOrderDTO.OrderNumber);
+			_logger.LogInformation("{Service}.{Method} reached... Processing AddOrderDTO with OrderNumber {OrderNumber}", nameof(OrderAdderService), nameof(OrderAdderService.AddOrderAsync), addOrderDTO.OrderNumber);
 
 			Order newOrder = addOrderDTO.ToOrder();
 			newOrder.OrderId = Guid.NewGuid();

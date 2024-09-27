@@ -116,5 +116,30 @@ namespace OrdersAPI.Infrastructure.Repositories
 			await _db.SaveChangesAsync();
 			return true; 
 		}
+
+		/// <summary>
+		/// Checks if Order with the given GUID exists.
+		/// </summary>
+		/// <param name="orderId">The Order's GUID.</param>
+		/// <returns>true if exists, otherwise false.</returns>
+		public async Task<bool> OrderExistsAsync(Guid? orderId)
+		{
+			if (orderId == null) throw new ArgumentNullException(nameof(orderId));
+			if (orderId == Guid.Empty) throw new ArgumentException(nameof(orderId));
+
+			_logger.LogInformation("{Repository}.{Method} Reached. Checking if Order with OrderId {OrderId} exists...", nameof(OrdersRepository), nameof(OrderExistsAsync), orderId);
+			bool orderExists = await _db.Orders.AnyAsync(o => o.OrderId == orderId);
+
+			if (orderExists)
+			{
+				_logger.LogInformation("Order exists.");
+			}
+			else
+			{
+				_logger.LogWarning("Order does NOT exist.");
+			}
+
+			return orderExists;
+		}
 	}
 }

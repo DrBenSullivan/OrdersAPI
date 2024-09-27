@@ -100,7 +100,7 @@ namespace OrdersAPI.WebAPI.Controllers
 				return BadRequest($"The ID in query string ({orderId}) does not match that of the update request ({updateOrderRequest.OrderId}). The IDs must match exactly.");
 			}
 
-			_logger.LogInformation("Valid details received for order with ID {OrderId}.\nCalling {Method}", orderId.ToString(), nameof(_orderUpdaterService.UpdateOrderAsync));
+			_logger.LogInformation("Valid details received for order with ID {OrderId}.\nCalling {NextClass}{Method}", orderId.ToString(), nameof(_orderUpdaterService), nameof(_orderUpdaterService.UpdateOrderAsync));
 			OrderResponseDTO? updatedOrder = await _orderUpdaterService.UpdateOrderAsync(updateOrderRequest);
 
 			if (updatedOrder == null)

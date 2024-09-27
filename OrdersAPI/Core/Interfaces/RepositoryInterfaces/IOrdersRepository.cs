@@ -10,5 +10,6 @@ namespace OrdersAPI.Core.Interfaces.RepositoryInterfaces
 		public Task<Order> AddOrderAsync(Order order);
 		public Task<Order?> UpdateOrderAsync(Order order);
 		public Task<bool> DeleteOrderByIdAsync(Guid orderId);
+		public Task<bool> OrderExistsAsync(Guid? orderId);
 	}
 }

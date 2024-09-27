@@ -29,7 +29,7 @@
             CustomerName = order.CustomerName,
             OrderDate = order.OrderDate,
             TotalPrice = order.TotalPrice,
-            OrderItems = order.Items.ToOrderItemResponseList()
+            OrderItems = order.Items.ToOrderItemResponseDTOList()
         };
 
         public static List<OrderResponseDTO> ToOrderResponseDTOList(this List<Order> orders)

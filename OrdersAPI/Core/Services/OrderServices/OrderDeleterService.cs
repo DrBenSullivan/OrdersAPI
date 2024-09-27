@@ -1,5 +1,6 @@
 ﻿using OrdersAPI.Core.Interfaces.RepositoryInterfaces;
 using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces;
+using OrdersAPI.Core.Services.OrderItemsServices;
 
 namespace OrdersAPI.Core.Services.OrderServices
 {
@@ -20,7 +21,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 
 		public async Task<bool> DeleteOrderByIdAsync(Guid orderId)
 		{
-			_logger.LogInformation("{Method} reached with OrderId {OrderId}... Calling {NextMethod}", nameof(DeleteOrderByIdAsync), orderId, nameof(_ordersRepository.DeleteOrderByIdAsync));
+			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}... Calling {NextMethod}", nameof(OrderDeleterService), nameof(DeleteOrderByIdAsync), orderId, nameof(_ordersRepository.DeleteOrderByIdAsync));
 
 			bool isDeleted = await _ordersRepository.DeleteOrderByIdAsync(orderId);
 

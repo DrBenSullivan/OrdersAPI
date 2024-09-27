@@ -26,7 +26,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>A list of OrderResponseDTOs</returns>
 		public async Task<List<OrderResponseDTO>> GetAllOrdersAsync()
 		{
-			_logger.LogInformation("{Method} reached... \nCalling {NextMethod}...", nameof(GetAllOrdersAsync), nameof(_ordersRepository.GetAllOrdersAsync));
+			_logger.LogInformation("{Service}.{Method} reached... \nCalling {NextMethod}...", nameof(OrderGetterService), nameof(GetAllOrdersAsync), nameof(_ordersRepository.GetAllOrdersAsync));
 			var orders = await _ordersRepository.GetAllOrdersAsync();
 			return orders.ToOrderResponseDTOList();
 		}
@@ -38,7 +38,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 		/// <returns>A nullable OrderResponseDTO.</returns>
 		public async Task<OrderResponseDTO?> GetOrderByIdAsync(Guid orderId)
 		{
-			_logger.LogInformation("{Method} reached with orderId {OrderId}... \nCalling {NextMethod}", nameof(GetOrderByIdAsync), orderId, nameof(_ordersRepository.GetOrderByIdAsync));
+			_logger.LogInformation("{Service}.{Method} reached with orderId {OrderId}... \nCalling {NextMethod}", nameof(OrderGetterService), nameof(GetOrderByIdAsync), orderId, nameof(_ordersRepository.GetOrderByIdAsync));
 			Order? order = await _ordersRepository.GetOrderByIdAsync(orderId);
 			return order?.ToOrderResponseDTO();
 		}
