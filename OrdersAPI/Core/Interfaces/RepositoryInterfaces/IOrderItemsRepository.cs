@@ -7,7 +7,9 @@ namespace OrdersAPI.Core.Interfaces.RepositoryInterfaces
 	{
 		public Task<OrderItem> AddOrderItemAsync(OrderItem orderItem);
 		public Task<List<OrderItem>?> GetOrderItemsByOrderIdAsync(Guid orderId);
-		public Task<OrderItem?> GetOrderItemByIdAsync(Guid orderId);
+		public Task<OrderItem?> GetOrderItemByIdAsync(Guid orderItemId);
 		public Task<OrderItem?> UpdateOrderItemAsync(OrderItem orderItem);
+		public Task<bool> DeleteOrderItemAsync(Guid orderItemId);
+		public Task<bool> OrderItemExistsAsync(Guid orderItemId);
 	}
 }

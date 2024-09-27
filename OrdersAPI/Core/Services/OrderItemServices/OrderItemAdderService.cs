@@ -8,16 +8,16 @@ using OrdersAPI.Infrastructure.Repositories;
 
 namespace OrdersAPI.Core.Services.OrderItemsServices
 {
-	public class OrderItemsAdderService : IOrderItemsAdderService
+	public class OrderItemAdderService : IOrderItemAdderService
 	{
 		#region private readonly fields
-		private readonly ILogger<OrderItemsAdderService> _logger;
+		private readonly ILogger<OrderItemAdderService> _logger;
 		private readonly IOrderItemsRepository _orderItemsRepository;
 		private readonly IOrdersRepository _ordersRepository;
         #endregion
 
         #region constructors
-        public OrderItemsAdderService(ILogger<OrderItemsAdderService> logger, IOrderItemsRepository orderItemsRepository, IOrdersRepository ordersRepository)
+        public OrderItemAdderService(ILogger<OrderItemAdderService> logger, IOrderItemsRepository orderItemsRepository, IOrdersRepository ordersRepository)
         {
             _logger = logger;
 			_orderItemsRepository = orderItemsRepository;
@@ -32,7 +32,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
 		/// <returns>An OrderItemResponseDTO of the added OrderItem or, null if fails.</returns>
 		public async Task<OrderItemResponseDTO?> AddOrderItemAsync(AddOrderItemDTO addOrderItemDTO)
 		{
-			_logger.LogInformation("{Service}.{Method} reached. Calling {NextMethod}...", nameof(OrderItemsAdderService), nameof(AddOrderItemAsync), nameof(_ordersRepository.OrderExistsAsync));
+			_logger.LogInformation("{Service}.{Method} reached. Calling {NextMethod}...", nameof(OrderItemAdderService), nameof(AddOrderItemAsync), nameof(_ordersRepository.OrderExistsAsync));
 		
 			var orderExists = await _ordersRepository.OrderExistsAsync(addOrderItemDTO.OrderId);
 			if (!orderExists) return null;

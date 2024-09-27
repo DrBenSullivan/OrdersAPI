@@ -2,7 +2,7 @@
 
 namespace OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces
 {
-	public interface IOrderItemsAdderService
+	public interface IOrderItemAdderService
 	{
 		public Task<OrderItemResponseDTO?> AddOrderItemAsync(AddOrderItemDTO addOrderItemDTO);
 	}

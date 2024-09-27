@@ -5,15 +5,15 @@ using OrdersAPI.Core.Models.DTOs;
 
 namespace OrdersAPI.Core.Services.OrderItemsServices
 {
-	public class OrderItemsGetterService : IOrderItemsGetterService
+	public class OrderItemGetterService : IOrderItemGetterService
 	{
 		#region private readonly fields
-		private readonly ILogger<OrderItemsGetterService> _logger;
+		private readonly ILogger<OrderItemGetterService> _logger;
 		private readonly IOrderItemsRepository _orderItemsRepository;
         #endregion
 
         #region constructors
-        public OrderItemsGetterService(ILogger<OrderItemsGetterService> logger, IOrderItemsRepository orderItemsRepository)
+        public OrderItemGetterService(ILogger<OrderItemGetterService> logger, IOrderItemsRepository orderItemsRepository)
         {
             _logger = logger;
             _orderItemsRepository = orderItemsRepository;
@@ -28,7 +28,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
 		public async Task<List<OrderItemResponseDTO>?> GetOrderItemsByOrderIdAsync(Guid orderId)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}. Calling {NextClass}.{NextMethod}.", 
-				nameof(OrderItemsGetterService), nameof(GetOrderItemsByOrderIdAsync), orderId, nameof(_orderItemsRepository), nameof(_orderItemsRepository.GetOrderItemsByOrderIdAsync));
+				nameof(OrderItemGetterService), nameof(GetOrderItemsByOrderIdAsync), orderId, nameof(_orderItemsRepository), nameof(_orderItemsRepository.GetOrderItemsByOrderIdAsync));
 
 			List<OrderItem>? orderItems = await _orderItemsRepository.GetOrderItemsByOrderIdAsync(orderId);
 
@@ -50,7 +50,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
 		public async Task<OrderItemResponseDTO?> GetOrderItemByIdAsync(Guid orderItemId)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}. Calling {NextClass}.{NextMethod}.", 
-				nameof(OrderItemsGetterService), nameof(GetOrderItemByIdAsync), orderItemId, nameof(_orderItemsRepository), nameof(_orderItemsRepository.GetOrderItemByIdAsync));
+				nameof(OrderItemGetterService), nameof(GetOrderItemByIdAsync), orderItemId, nameof(_orderItemsRepository), nameof(_orderItemsRepository.GetOrderItemByIdAsync));
 
 			OrderItem? orderItem = await _orderItemsRepository.GetOrderItemByIdAsync(orderItemId);
 

@@ -92,5 +92,59 @@ namespace OrdersAPI.Infrastructure.Repositories
 
 			return existingItem;
 		}
+
+
+		/// <summary>
+		/// Deletes an existing OrderItem from the database.
+		/// </summary>
+		/// <param name="orderItemId">The OrderItemId of the OrderItem to be deleted.</param>
+		/// <returns>true if successful. Otherwise, false.</returns>
+		public async Task<bool> DeleteOrderItemAsync(Guid orderItemId)
+		{
+			_logger.LogInformation("{Repository}.{Method} reached with OrderItemId {OrderItemId}. Interrogating database...", nameof(OrderItemsRepository), nameof(DeleteOrderItemAsync), orderItemId);
+
+			OrderItem? existingItem = _db.OrderItems.Find(orderItemId);
+
+			if (existingItem == null)
+			{
+				_logger.LogWarning("OrderItem with OrderItemId {OrderItemId} does NOT exist.", orderItemId);
+			}
+			else
+			{
+				_logger.LogInformation("OrderItem with OrderItemId {OrderItemId} exists! Deleting...", orderItemId);
+				_db.OrderItems.Remove(existingItem);
+				await _db.SaveChangesAsync();
+			}
+
+			return existingItem != null;
+		}
+
+
+		/// <summary>
+		/// Checks if an OrderItem with the given GUID exists.
+		/// </summary>
+		/// <param name="orderItemId">The OrderItem's GUID.</param>
+		/// <returns>true if exists, otherwise false.</returns>
+		public async Task<bool> OrderItemExistsAsync(Guid orderItemId)
+		{
+			if (orderItemId == Guid.Empty)
+			{
+				throw new ArgumentException("OrderItemId must be provided", nameof(orderItemId));
+			}
+
+			_logger.LogInformation("{Repository}.{Method} Reached. Checking if Order with OrderId {OrderId} exists...", nameof(OrderItemsRepository), nameof(OrderItemExistsAsync), orderItemId);
+			bool orderExists = await _db.OrderItems.AnyAsync(o => o.OrderItemId == orderItemId);
+
+			if (orderExists)
+			{
+				_logger.LogInformation("Order exists.");
+			}
+			else
+			{
+				_logger.LogWarning("Order does NOT exist.");
+			}
+
+			return orderExists;
+		}
 	}
 }

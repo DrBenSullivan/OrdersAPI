@@ -5,15 +5,15 @@ using OrdersAPI.Core.Models.DTOs;
 
 namespace OrdersAPI.Core.Services.OrderItemsServices
 {
-	public class OrderItemsUpdaterService : IOrderItemsUpdaterService
+	public class OrderItemUpdaterService : IOrderItemUpdaterService
 	{
 		#region private readonly fields
-		private readonly ILogger<OrderItemsUpdaterService> _logger;
+		private readonly ILogger<OrderItemUpdaterService> _logger;
 		private readonly IOrderItemsRepository _orderItemsRepository;
         #endregion
 
         #region constructors
-        public OrderItemsUpdaterService(ILogger<OrderItemsUpdaterService> logger, IOrderItemsRepository orderItemsRepository)
+        public OrderItemUpdaterService(ILogger<OrderItemUpdaterService> logger, IOrderItemsRepository orderItemsRepository)
         {
             _logger = logger;
 			_orderItemsRepository = orderItemsRepository;
@@ -28,7 +28,7 @@ namespace OrdersAPI.Core.Services.OrderItemsServices
 		public async Task<OrderItemResponseDTO?> UpdateOrderItemAsync(UpdateOrderItemDTO updateOrderItemDTO)
 		{
 			_logger.LogInformation("{Service}.{Method} reached with OrderId {OrderId}. Calling {NextClass}.{NextMethod}.", 
-				nameof(OrderItemsUpdaterService), nameof(UpdateOrderItemAsync), updateOrderItemDTO.OrderId, nameof(_orderItemsRepository), nameof(_orderItemsRepository.UpdateOrderItemAsync));
+				nameof(OrderItemUpdaterService), nameof(UpdateOrderItemAsync), updateOrderItemDTO.OrderId, nameof(_orderItemsRepository), nameof(_orderItemsRepository.UpdateOrderItemAsync));
 			
 			OrderItem orderItem = updateOrderItemDTO.ToOrderItem();
 

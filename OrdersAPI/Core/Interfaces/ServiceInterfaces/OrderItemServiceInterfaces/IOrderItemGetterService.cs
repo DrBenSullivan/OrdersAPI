@@ -2,7 +2,7 @@
 
 namespace OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces
 {
-	public interface IOrderItemsGetterService
+	public interface IOrderItemGetterService
 	{
 		public Task<List<OrderItemResponseDTO>?> GetOrderItemsByOrderIdAsync(Guid orderId);
 		public Task<OrderItemResponseDTO?> GetOrderItemByIdAsync(Guid orderItemId);

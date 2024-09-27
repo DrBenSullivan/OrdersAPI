@@ -28,9 +28,10 @@ builder.Services.AddScoped<IOrderUpdaterService, OrderUpdaterService>();
 builder.Services.AddScoped<IOrderDeleterService, OrderDeleterService>();
 
 builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
-builder.Services.AddScoped<IOrderItemsGetterService, OrderItemsGetterService>();
-builder.Services.AddScoped<IOrderItemsAdderService, OrderItemsAdderService>();
-builder.Services.AddScoped<IOrderItemsUpdaterService, OrderItemsUpdaterService>();
+builder.Services.AddScoped<IOrderItemGetterService, OrderItemGetterService>();
+builder.Services.AddScoped<IOrderItemAdderService, OrderItemAdderService>();
+builder.Services.AddScoped<IOrderItemUpdaterService, OrderItemUpdaterService>();
+builder.Services.AddScoped<IOrderItemDeleterService, OrderItemDeleterService>();
 
 var app = builder.Build();
 

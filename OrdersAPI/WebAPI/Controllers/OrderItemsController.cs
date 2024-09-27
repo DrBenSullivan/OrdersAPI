@@ -10,18 +10,20 @@ namespace OrdersAPI.WebAPI.Controllers
 	{
 		#region private readonly fields
 		private readonly ILogger<OrderItemsController> _logger;
-		private readonly IOrderItemsGetterService _orderItemsGetterService;
-		private readonly IOrderItemsAdderService _orderItemsAdderService;
-		private readonly IOrderItemsUpdaterService _orderItemsUpdaterService;
+		private readonly IOrderItemGetterService _orderItemsGetterService;
+		private readonly IOrderItemAdderService _orderItemsAdderService;
+		private readonly IOrderItemUpdaterService _orderItemsUpdaterService;
+		private readonly IOrderItemDeleterService _orderItemDeleterService;
         #endregion
 
 		#region constructors
-		public OrderItemsController(ILogger<OrderItemsController> logger, IOrderItemsGetterService orderItemsGetterService, IOrderItemsAdderService orderItemsAdderService, IOrderItemsUpdaterService orderItemsUpdaterService)
+		public OrderItemsController(ILogger<OrderItemsController> logger, IOrderItemGetterService orderItemsGetterService, IOrderItemAdderService orderItemsAdderService, IOrderItemUpdaterService orderItemsUpdaterService, IOrderItemDeleterService orderItemDeleterService)
 		{
 			_logger = logger;
 			_orderItemsGetterService = orderItemsGetterService;
 			_orderItemsAdderService = orderItemsAdderService;
 			_orderItemsUpdaterService = orderItemsUpdaterService;
+			_orderItemDeleterService = orderItemDeleterService;
 		 }
 		#endregion
 
@@ -117,6 +119,22 @@ namespace OrdersAPI.WebAPI.Controllers
 			}
 
 			return Ok(updatedOrderItemDTO);
+		}
+
+		/// <summary>
+		/// Deletes the OrderItem with the given OrderItemId from the database.
+		/// </summary>
+		/// <param name="orderItemId">The OrderItemId of the order to be deleted.</param>
+		/// <returns>StatusCode 202 if successful, StatusCode 404 if not.</returns>
+		[HttpDelete("{orderItemId}")]
+		public async Task<ActionResult> DeleteOrderItemById(Guid orderItemId)
+		{
+			_logger.LogInformation("{Controller}.{Method} reached with Order ID {OrderId}... Calling {NextClass}.{NextMethod}", nameof(OrderItemsController), nameof(DeleteOrderItemById), orderItemId, nameof(OrderItemDeleterService), nameof(OrderItemDeleterService.DeleteOrderItemAsync));
+
+			var isDeleted = await _orderItemDeleterService.DeleteOrderItemAsync(orderItemId);
+
+			if (isDeleted) return NoContent();
+			else return NotFound();
 		}
 	}
 }
