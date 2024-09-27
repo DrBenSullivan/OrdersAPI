@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrdersAPI.WebAPI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CustomControllerBase : ControllerBase
     {

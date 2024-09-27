@@ -344,29 +344,29 @@
         <member name="M:OrdersAPI.Migrations.Initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:OrdersAPI.WebAPI.Controllers.OrderItemsController">
+        <member name="T:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController">
             <summary>
             The Controller for performing operations on the "OrderItems" table of the application's database.
             </summary>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.WebAPI.Controllers.OrderItemsController},OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemGetterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemAdderService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemUpdaterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemDeleterService)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.WebAPI.Controllers.v1.OrderItemsController},OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemGetterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemAdderService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemUpdaterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces.IOrderItemDeleterService)">
             <inheritdoc/>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.GetAllItemsByOrderId(System.Guid)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController.GetAllItemsByOrderId(System.Guid)">
             <summary>
             Retrieves all OrderItems from a given Order by the Order's OrderId.
             </summary>
             <param name="orderId">The OrderId of the Order whose OrderItems are to be retrieved.</param>
             <returns>If the Order exists, the Order's OrderItems as a list of OrderItemResponseDTOs. Otherwise, 404 Not Found.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.GetOrderItemById(System.Guid)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController.GetOrderItemById(System.Guid)">
             <summary>
             Retrieves an existing OrderItem using the provided OrderItemId.
             </summary>
             <param name="orderItemId">The OrderId of the OrderItem to be retrieved.</param>
             <returns>If the OrderItem exists, an OrderItemResponseDTO of the OrderItem. Otherwise, 404 Not Found.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.AddItemToOrder(System.Guid,OrdersAPI.Core.Models.DTOs.AddOrderItemDTO)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController.AddItemToOrder(System.Guid,OrdersAPI.Core.Models.DTOs.AddOrderItemDTO)">
             <summary>
             Adds an OrderItem to an existing Order.
             </summary>
@@ -374,7 +374,7 @@
             <param name="addOrderItemDTO">An AddOrderItemDTO of the OrderItem to be added to the Order.</param>
             <returns>An OrderItemResponseDTO of the added item, if sucessful.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.UpdateOrderItem(System.Guid,System.Guid,OrdersAPI.Core.Models.DTOs.UpdateOrderItemDTO)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController.UpdateOrderItem(System.Guid,System.Guid,OrdersAPI.Core.Models.DTOs.UpdateOrderItemDTO)">
             <summary>
             Updates an existing OrderItem.
             </summary>
@@ -383,42 +383,42 @@
             <param name="updateOrderItemDTO">An updateOrderItemDTO of the OrderItem to be updated.</param>
             <returns>If successful, 200 Ok with an OrderItemResponseDTO of the OrderItem.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrderItemsController.DeleteOrderItemById(System.Guid)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrderItemsController.DeleteOrderItemById(System.Guid)">
             <summary>
             Deletes an existing OrderItem using its OrderItemId.
             </summary>
             <param name="orderItemId">The OrderItemId of the OrderItem to be deleted.</param>
             <returns>If successful, StatusCode 202 if successful. Otherwise, StatusCode 404.</returns>
         </member>
-        <member name="T:OrdersAPI.WebAPI.Controllers.OrdersController">
+        <member name="T:OrdersAPI.WebAPI.Controllers.v1.OrdersController">
             <summary>
             The Controller for performing operations on the "Orders" table of the application's database.
             </summary>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.WebAPI.Controllers.OrdersController},OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderGetterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderAdderService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderUpdaterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderDeleterService)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrdersController.#ctor(Microsoft.Extensions.Logging.ILogger{OrdersAPI.WebAPI.Controllers.v1.OrdersController},OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderGetterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderAdderService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderUpdaterService,OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderServiceInterfaces.IOrderDeleterService)">
             <inheritdoc/>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.GetOrders">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrdersController.GetOrders">
             <summary>
             Retrieves all orders.
             </summary>
             <returns>All orders as a list of OrderResponseDTOs.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.GetOrderById(System.Guid)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrdersController.GetOrderById(System.Guid)">
             <summary>
             Retrieves an existing Order using its OrderId.
             </summary>
             <param name="orderId">The OrderId of the existing Order to be retrieved.</param>
             <returns>An Order as an OrderResponseDTO.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.AddOrder(OrdersAPI.Core.Models.DTOs.AddOrderDTO)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrdersController.AddOrder(OrdersAPI.Core.Models.DTOs.AddOrderDTO)">
             <summary>
             Adds a new Order.
             </summary>
             <param name="addOrderRequest">Details of the Order to be added.</param>
             <returns>The added Order as an OrderResponseDTO.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.UpdateOrder(System.Guid,OrdersAPI.Core.Models.DTOs.UpdateOrderDTO)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrdersController.UpdateOrder(System.Guid,OrdersAPI.Core.Models.DTOs.UpdateOrderDTO)">
             <summary>
             Updates an existing Order.
             </summary>
@@ -426,7 +426,7 @@
             <param name="updateOrderRequest">An UpdateOrderDTO containing the new details of the Order.</param>
             <returns>The updated Order as an OrderResponseDTO.</returns>
         </member>
-        <member name="M:OrdersAPI.WebAPI.Controllers.OrdersController.DeleteOrderById(System.Guid)">
+        <member name="M:OrdersAPI.WebAPI.Controllers.v1.OrdersController.DeleteOrderById(System.Guid)">
             <summary>
             Deletes an existing Order using its OrderId.
             </summary>
