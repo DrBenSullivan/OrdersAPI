@@ -21,6 +21,7 @@ namespace OrdersAPI.Infrastructure.Repositories
         }
 		#endregion
 
+
 		/// <summary>
 		/// Adds an OrderItem to the database.
 		/// </summary>
@@ -33,6 +34,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 			await _db.SaveChangesAsync();
 			return orderItem;
 		}
+
 
 		/// <summary>
 		/// Gets a list of OrderItems from the Order with the given orderId.
@@ -48,6 +50,7 @@ namespace OrdersAPI.Infrastructure.Repositories
 				.ToListAsync();
 		}
 
+
 		/// <summary>
 		/// Gets an OrderItem by its GUID.
 		/// </summary>
@@ -59,6 +62,35 @@ namespace OrdersAPI.Infrastructure.Repositories
 
 			return await _db.OrderItems
 				.FirstOrDefaultAsync(o => o.OrderItemId == orderItemId);
+		}
+
+
+		/// <summary>
+		/// Updates a given OrderItem.
+		/// </summary>
+		/// <param name="orderItem">The new OrderItem details.</param>
+		/// <returns>The updated OrderItem if successful, otherwise null.</returns>
+		public async Task<OrderItem?> UpdateOrderItemAsync(OrderItem orderItem)
+		{
+			_logger.LogInformation("{Repository}.{Method} reached. Interrogating database...", nameof(OrderItemsRepository), nameof(GetOrderItemByIdAsync));
+
+			OrderItem? existingItem = _db.OrderItems.Find(orderItem.OrderItemId);
+
+			if (existingItem == null)
+			{
+				_logger.LogWarning("OrderItem with OrderItemId {OrderItemId} does NOT exist.", orderItem.OrderItemId);
+			}
+			else
+			{
+				_logger.LogInformation("OrderItem with OrderItemId {OrderItemId} exists! Updating...", orderItem.OrderItemId);
+				existingItem.ProductName = orderItem.ProductName;
+				existingItem.Quantity = orderItem.Quantity;
+				existingItem.UnitPrice = orderItem.UnitPrice;
+				existingItem.TotalPrice = orderItem.TotalPrice;
+				await _db.SaveChangesAsync();
+			}
+
+			return existingItem;
 		}
 	}
 }

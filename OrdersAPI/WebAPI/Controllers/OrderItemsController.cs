@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OrdersAPI.Core.Interfaces.ServiceInterfaces.OrderItemsServiceInterfaces;
 using OrdersAPI.Core.Models.DTOs;
+using OrdersAPI.Core.Services.OrderItemsServices;
 
 namespace OrdersAPI.WebAPI.Controllers
 {
-	[ApiController]
 	[Route("api/orders/{orderId}/items")]
 	public class OrderItemsController : CustomControllerBase
 	{
@@ -12,17 +12,24 @@ namespace OrdersAPI.WebAPI.Controllers
 		private readonly ILogger<OrderItemsController> _logger;
 		private readonly IOrderItemsGetterService _orderItemsGetterService;
 		private readonly IOrderItemsAdderService _orderItemsAdderService;
+		private readonly IOrderItemsUpdaterService _orderItemsUpdaterService;
         #endregion
 
 		#region constructors
-		public OrderItemsController(ILogger<OrderItemsController> logger, IOrderItemsGetterService orderItemsGetterService, IOrderItemsAdderService orderItemsAdderService)
+		public OrderItemsController(ILogger<OrderItemsController> logger, IOrderItemsGetterService orderItemsGetterService, IOrderItemsAdderService orderItemsAdderService, IOrderItemsUpdaterService orderItemsUpdaterService)
 		{
 			_logger = logger;
 			_orderItemsGetterService = orderItemsGetterService;
 			_orderItemsAdderService = orderItemsAdderService;
+			_orderItemsUpdaterService = orderItemsUpdaterService;
 		 }
 		#endregion
 
+		/// <summary>
+		/// Gets all OrderItems from a given Order.
+		/// </summary>
+		/// <param name="orderId">The GUID of the Order to retrieve OrderItems for.</param>
+		/// <returns>A List of OrderItemResponseDTOs of the OrderItems if the Order exists. Otherwise, 404 Not Found.</returns>
 		[HttpGet]
 		public async Task<ActionResult<List<OrderItemResponseDTO>>> GetAllItemsByOrderId(Guid orderId)
 		{
@@ -38,6 +45,12 @@ namespace OrdersAPI.WebAPI.Controllers
 			else return orderItems;
 		}
 
+
+		/// <summary>
+		/// Gets an OrderItem by its GUID.
+		/// </summary>
+		/// <param name="orderItemId">The GUID of the item to be found.</param>
+		/// <returns>An OrderItemResponseDTO of the OrderItem if it exists. Otherwise, 404 Not Found.</returns>
 		[HttpGet("{orderItemId}")]
 		public async Task<ActionResult<OrderItemResponseDTO>> GetOrderItemById(Guid orderItemId)
 		{
@@ -53,26 +66,57 @@ namespace OrdersAPI.WebAPI.Controllers
 			else return orderItem;
 		}
 
+
+		/// <summary>
+		/// Adds and OrderItem to a given Order.
+		/// </summary>
+		/// <param name="orderId">The GUID of the Order to be added to.</param>
+		/// <param name="addOrderItemDTO">An AddOrderItemDTO of the OrderItem to add to the Order.</param>
+		/// <returns>An OrderItemResponseDTO of the added item, if sucessful.</returns>
 		[HttpPost]
-		public async Task<ActionResult<OrderItemResponseDTO>> AddItemToOrder(Guid orderId, AddOrderItemDTO addOrderItemDTO)
+		public async Task<ActionResult<OrderItemResponseDTO>> AddItemToOrder(Guid orderId, [Bind] AddOrderItemDTO addOrderItemDTO)
 		{
 			if (orderId == Guid.Empty) return BadRequest("No Order ID provided in the URL.");
 			if (addOrderItemDTO.OrderId == Guid.Empty) return BadRequest("No Order ID provided in the request body.");
-			if (orderId != addOrderItemDTO.OrderId)
-			{
-				return BadRequest("Order IDs do not match. Order ID in route must match the Order ID of the item to be added.");
-			}
-
+			if (orderId != addOrderItemDTO.OrderId)	return BadRequest("Order IDs do not match. Order ID in route must match the Order ID of the item to be added.");
+			
 			_logger.LogInformation("{Controller}.{Method} reached with orderId {OrderId}, calling {NextMethod}.", nameof(OrderItemsController), nameof(AddItemToOrder), orderId, nameof(_orderItemsAdderService.AddOrderItemAsync));
 
 			OrderItemResponseDTO? addedOrderItemDTO = await _orderItemsAdderService.AddOrderItemAsync(addOrderItemDTO);
 
 			if (addedOrderItemDTO == null)
 			{
-				return NotFound();
+				return Problem();
 			}
 			
 			return CreatedAtAction(nameof(GetOrderItemById), new { orderId = addedOrderItemDTO.OrderId, orderItemId = addedOrderItemDTO.OrderItemId }, addedOrderItemDTO);
+		}
+
+
+		/// <summary>
+		/// Updates an existing OrderItem's details.
+		/// </summary>
+		/// <param name="orderId">The OrderId of the given OrderItem.</param>
+		/// <param name="orderItemId">The OrderItemId of the given OrderItem.</param>
+		/// <param name="updateOrderItemDTO">An updateOrderItemDTO of the OrderItem to be updated.</param>
+		/// <returns></returns>
+		[HttpPut("{orderItemId}")]
+		public async Task<ActionResult<OrderItemResponseDTO>> UpdateOrderItem(Guid orderId, Guid orderItemId, [Bind] UpdateOrderItemDTO updateOrderItemDTO)
+		{
+			if (orderId == Guid.Empty) return BadRequest("A valid OrderId must be provided.");
+			if (orderItemId == Guid.Empty) return BadRequest("A valid OrderItemId must be provided.");
+			if (orderId != updateOrderItemDTO.OrderId) return BadRequest("The OrderId in the Url and the OrderId of the UpdateOrderItemDTO must match exactly.");
+			if (orderItemId != updateOrderItemDTO.OrderItemId) return BadRequest("The OrderItemId in the Url and the OrderItemId of the UpdateOrderItemDTO must match exactly.");
+
+			_logger.LogInformation("{Controller}.{Method} reached with OrderId {OrderId} and OrderItemId {OrderItemId}. Calling {NextClass}.{NextMethod}.", nameof(OrderItemsController), nameof(UpdateOrderItem), orderId, orderItemId, nameof(_orderItemsUpdaterService), nameof(_orderItemsUpdaterService.UpdateOrderItemAsync));
+
+			OrderItemResponseDTO? updatedOrderItemDTO = await _orderItemsUpdaterService.UpdateOrderItemAsync(updateOrderItemDTO);
+
+			if (updatedOrderItemDTO == null) {
+				return Problem();
+			}
+
+			return Ok(updatedOrderItemDTO);
 		}
 	}
 }

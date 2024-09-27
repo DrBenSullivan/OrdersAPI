@@ -30,6 +30,7 @@ builder.Services.AddScoped<IOrderDeleterService, OrderDeleterService>();
 builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 builder.Services.AddScoped<IOrderItemsGetterService, OrderItemsGetterService>();
 builder.Services.AddScoped<IOrderItemsAdderService, OrderItemsAdderService>();
+builder.Services.AddScoped<IOrderItemsUpdaterService, OrderItemsUpdaterService>();
 
 var app = builder.Build();
 

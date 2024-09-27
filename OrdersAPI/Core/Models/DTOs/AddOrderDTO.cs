@@ -6,7 +6,7 @@
 		public string? CustomerName { get; set; }
 		public DateTime OrderDate { get; set; }
 		public decimal TotalPrice { get; set; }
-		public List<AddOrderItemDTO> OrderItems { get; set; } = new List<AddOrderItemDTO>();
+		public List<AddOrderItemDTO> OrderItems { get; set; } = [];
 	
 		public Order ToOrder() => new ()
 		{
