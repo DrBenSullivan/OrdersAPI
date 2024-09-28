@@ -8,7 +8,7 @@ namespace OrdersAPI.WebAPI.Controllers.v1
     /// <summary>
     /// The Controller for performing operations on the "OrderItems" table of the application's database.
     /// </summary>
-    [Route("api/orders/{orderId}/items")]
+    [Route("api/v{version:apiVersion}/orders/{orderId}/items")]
     [ApiVersion("1.0")]
     public class OrderItemsController : CustomControllerBase
     {

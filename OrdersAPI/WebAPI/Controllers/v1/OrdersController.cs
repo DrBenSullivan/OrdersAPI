@@ -61,7 +61,7 @@ namespace OrdersAPI.WebAPI.Controllers.v1
             if (order == null)
             {
                 _logger.LogInformation("Order with Id {OrderId} not found.", orderId);
-                return NotFound($"No Order with ID {orderId} could be retrieved from the database.");
+                return NotFound();
             }
 
             return order;
