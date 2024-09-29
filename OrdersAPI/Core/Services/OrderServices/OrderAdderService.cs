@@ -37,7 +37,7 @@ namespace OrdersAPI.Core.Services.OrderServices
 			var addedOrder = await _ordersRepository.AddOrderAsync(newOrder);
 			var addedOrderResponse = addedOrder.ToOrderResponseDTO();
 
-			List<OrderItem> items = addOrderDTO.OrderItems.ToOrderItemsList();
+			List<OrderItem> items = addOrderDTO.Items.ToOrderItemsList();
 			foreach (var item in items)
 			{
 				item.OrderItemId = Guid.NewGuid();
